@@ -4,9 +4,10 @@ import styled from "styled-components"
 
 const UL = styled.ul`
 `;
-const NavBar = styled.div
+const NavBarDiv = styled.div`
+`;
 export default function NavBar() {
-    return (<NavBar>
+    return (<NavBarDiv>
         <nav>
             <UL>
                 <li><Link to="/about">about</Link></li>
@@ -17,6 +18,7 @@ export default function NavBar() {
                     <li>lookup by name</li>
                 </ul>
                 </li>
+
                 <li><Link to="/encounterView">encounter</Link>
                 <ul>
                     <li>lookup by patient</li>
@@ -26,5 +28,5 @@ export default function NavBar() {
    
             </UL>            
         </nav>
-    </NavBar>)
+    </NavBarDiv>)
 }

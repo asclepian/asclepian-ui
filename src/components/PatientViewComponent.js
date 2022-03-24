@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 const UL = styled.ul``;
 const LI = styled.li``;
+const PatientDiv = styled.div`
+grid-area: main;
+`;
 
 const Interaction = styled.ul``;
 const Item = styled.li`
@@ -17,7 +20,7 @@ export default class PatientView extends React.Component {
         this.state = { patient: props.patient };
     }
     render() {
-        return <div id={this.state.patient.filenum} className="patient">
+        return <PatientDiv id={this.state.patient.filenum} className="patient">
             <UL className='patientData'>
                 <LI><span>Dossier: {this.state.patient.filenum}</span></LI>
                 <LI><span>{this.state.patient.lastname} {this.state.patient.firstname}</span></LI>
@@ -33,6 +36,6 @@ export default class PatientView extends React.Component {
                 <Item><a href='.'>Sauvegarder</a></Item>
             </Interaction>
 
-        </div>
+        </PatientDiv>
     }
 }

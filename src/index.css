@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "NexaBook";
+    src: local("NexaBook"),
+     url("./fonts/Nexa/Nexa-Trial-Book.woff2") format("woff2");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "NexaBookItalic";
+    src: local("NexaBookItalic"),
+    url("./fonts/Nexa/Nexa-Trial-BookItalic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "NexaBold";
+    src: local("NexaBold"),
+    url("./fonts/Nexa/Nexa-Trial-Bold.woff2") format("woff2");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "NexaHeavy";
+    src: local("NexaHeavy"),
+    url("./fonts/Nexa/Nexa-Trial-Heavy.woff2") format("woff2");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "NexaThin";
+    src: local("NexaThin"),
+    url("./fonts/Nexa/Nexa-Trial-Thin.woff2") format("woff2");
+    font-weight: normal;
+}

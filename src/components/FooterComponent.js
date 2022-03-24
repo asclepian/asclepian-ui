@@ -1,5 +1,11 @@
 import React from "react";
+import styled from "styled-components"
 
+const FooterDiv = styled.div`
+grid-area: footer;
+color: ${props => props.theme.dominant};
+background: ${props => props.theme.secondary};
+`;
 export default function Footer(){
-    return (<div>Footer</div>)
+    return (<FooterDiv>Footer</FooterDiv>)
 }

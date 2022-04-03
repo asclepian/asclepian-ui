@@ -21,15 +21,16 @@ display: grid;
 height: 100vh;
 background: ${props => props.theme.dominant};
 font-family: ${props => props.theme.fonts.normal};
-grid-template-rows: 1fr 10fr 10fr 1fr;
-grid-template-columns: 0.2fr 10fr 10fr;
+grid-template-rows: 1fr 10fr 10fr 10fr 1fr;
+grid-template-columns: 1fr 10fr 10fr 10fr;
 grid-template-areas:
-    "header header header"
-    "nav main main"
-    "nav main main"
-    "footer footer footer";
+    "header header header header"
+    "nav main main main "
+    "nav main main main"
+    "nav main main main"
+    "footer footer footer footer";
 text-align: left;
-grid-gap: 0.25rem;
+grid-gap: 0.1rem;
 .ReactCollapse--collapse {
     transition: height 500ms;
 }

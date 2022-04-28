@@ -1,13 +1,15 @@
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
-import About from './AboutComponent';
+// import About from './AboutComponent';
 import EncounterView from "./EncounterViewComponent";
 import Footer from './FooterComponent';
 import Header from './HeaderComponent';
 import Home from './HomeComponent';
 import NavBar from "./NavBarComponent";
 import PatientView from "./PatientViewComponent";
+import LookupView from "./LookupViewComponent";
+import AddEntityView from "./AddViewComponent";
 import theme from "../styles/theme"
 import { ThemeProvider } from "styled-components";
 import '../index.css'
@@ -45,9 +47,10 @@ export default function Main() {
                 <NavBar />
                 <Routes>
                     <Route path='/home' element={<Home />} />
-                    <Route path='/about' element={<About />} />
                     <Route path='/patientView' element={<PatientView patient={devPatientState} />} />
                     <Route path='/encounterView' element={<EncounterView />} />
+                    <Route path='/lookupView' element={<LookupView />} />
+                    <Route path='/AddEntityView' element={<AddEntityView />} />
                 </Routes>
                 <Footer />
             </Container>

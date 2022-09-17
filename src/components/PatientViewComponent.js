@@ -1,17 +1,4 @@
 import React from 'react';
-import styled from 'styled-components'
-
-const UL = styled.ul``;
-const LI = styled.li``;
-const PatientDiv = styled.div`
-grid-area: main;
-`;
-
-const Interaction = styled.ul``;
-const Item = styled.li`
-background: #9FC131
-`;
-
 
 
 export default class PatientView extends React.Component {
@@ -20,22 +7,22 @@ export default class PatientView extends React.Component {
         this.state = { patient: props.patient };
     }
     render() {
-        return <PatientDiv id={this.state.patient.filenum} className="patient">
-            <UL className='patientData'>
-                <LI><span>Dossier: {this.state.patient.filenum}</span></LI>
-                <LI><span>{this.state.patient.lastname} {this.state.patient.firstname}</span></LI>
-                <LI><span id="gender">{this.state.patient.gender}</span> <span id="birthdate">{this.state.patient.birthdate}</span></LI>
-                <LI><span id="landline">{this.state.patient.landline}</span></LI>
-                <LI><span id="mobile">{this.state.patient.mobile}</span></LI>
-                <LI><span id="address">{this.state.patient.address}</span></LI>
-                <LI><span id="city">{this.state.patient.city}</span></LI>
-            </UL>
+        return <div id={this.state.patient.filenum} className="patient container">
+            <ul className='patientData'>
+                <li><span>Dossier: {this.state.patient.filenum}</span></li>
+                <li><span>{this.state.patient.lastname} {this.state.patient.firstname}</span></li>
+                <li><span id="gender">{this.state.patient.gender}</span> <span id="birthdate">{this.state.patient.birthdate}</span></li>
+                <li><span id="landline">{this.state.patient.landline}</span></li>
+                <li><span id="mobile">{this.state.patient.mobile}</span></li>
+                <li><span id="address">{this.state.patient.address}</span></li>
+                <li><span id="city">{this.state.patient.city}</span></li>
+            </ul>
             <Interaction>
                 <Item><a href='.'>Rafraichire</a></Item>
                 <Item><a href='.'>Editer</a></Item>
                 <Item><a href='.'>Sauvegarder</a></Item>
             </Interaction>
 
-        </PatientDiv>
+        </div>
     }
 }

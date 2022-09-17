@@ -5,6 +5,7 @@ interface ITheme {
     secondaryDark: string,
     secondaryLight: string,
     accent: string,
+    roundCornerDiameter: string,
     fonts: {
         normal: string,
         bold: string,
@@ -20,6 +21,7 @@ const theme: ITheme = {
     secondaryDark: '#363b5c',
     secondaryLight: '#8695de',
     accent: '#4AB097',
+    roundCornerDiameter: '1em',
     fonts: {
         normal: 'NexaBook',
         bold: 'NexaHeavy',

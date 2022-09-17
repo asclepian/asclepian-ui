@@ -1,55 +1,14 @@
-import React, { FunctionComponent, useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-const iconHome = String(require('../icons/browse-page-64-secondary.png'))
-const iconLookup = String(require('../icons/search-64-secondary.png'))
-// import iconHomeHover from '../icons/home-64-accent.png'
+import React, { FunctionComponent, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+const iconHome = String(require('../icons/browse-page-64-secondary.png'));
+const iconLookup = String(require('../icons/search-64-secondary.png'));
+const iconHomeSelected = String(require('../icons/browse-page-64-accent.png'));
+const iconLookupSelected = String(require('../icons/search-64-accent.png'));
+// import iconHomeHover from '../icons/home-64-accent.png';
 // import iconHomeSelected from '../icons/home-64-dominant.png'
 
-const NavBarDiv = styled.div`
-    grid-area: nav;
-    background: ${(props) => props.theme.dominantDark};
-    border-color: ${(props) => props.theme.secondaryDark};
-    border-right-style: solid;
-    display: flex;
-    ul {
-        padding-left: 0em;
-        font-size: 1em;
-        list-style: none;
-        position: relative;
-    }
-    li .navItem {
-        padding: 1px;
-        margin: 5px;
-        font-size: 0.85em;
-        opacity: 0.8;
-        color: ${(props) => props.theme.secondaryDark};
-        font-family: ${(props) => props.theme.fonts.normal};
-    }
-    .navItem img {
-        width: 2em;
-    }
-    .navItem:hover {
-        color: ${(props) => props.theme.accent};
-        /* background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.05) 0%,
-            rgba(255, 255, 255, 0) 100%
-        ); */
-        border-color: ${(props) => props.theme.accent};
-        font-family: ${(props) => props.theme.fonts.bold};
-        border-left-style: solid;
-        opacity: 1;
-    }
-    li a {
-        //color: ${(props) => props.theme.secondaryDark};
-        // background-color:  ${(props) => props.theme.dominantDark};
-        padding-left: 0.2em;
-    }
-`
-const Nav = styled.nav`
-    width: 3em;
-`
 
 enum EnumState {
     Selected = 'selected',
@@ -77,19 +36,10 @@ function className(
     else return 'navItem'
 }
 
-function className(
-    navItem: NavigationItem,
-    currentSelection: NavigationItem | undefined
-): string {
-    if (navItem == currentSelection) return EnumState.Selected + ' navItem'
-    else return 'navItem'
-}
-
 const NavBar: FunctionComponent = () => {
     let [selection, setSelection] = useState<NavigationItem>()
     return (
-        <NavBarDiv>
-            <Nav>
+            <div>
                 <ul>
                     <li
                         className={className(home, selection)}
@@ -99,10 +49,17 @@ const NavBar: FunctionComponent = () => {
                         id={home.id}
                     >
                         <Link to={home.link}>
-                            <img src={iconHome} alt={home.text} />
+                            <img
+                                src={
+                                    home == selection
+                                        ? iconHomeSelected
+                                        : iconHome
+                                }
+                                alt={home.text}
+                            />
                         </Link>
                     </li>
-                    <li
+                   <li
                         className={className(lookup, selection)}
                         onClick={() => {
                             setSelection(lookup)
@@ -110,12 +67,19 @@ const NavBar: FunctionComponent = () => {
                         id={lookup.id}
                     >
                         <Link to={lookup.link}>
-                            <img src={iconLookup} alt={lookup.text} />
+                            <img
+                                src={
+                                    lookup == selection
+                                        ? iconLookupSelected
+                                        : iconLookup
+                                }
+                                alt={lookup.text}
+                            />
                         </Link>
-                    </li>
+                    </li> 
                 </ul>
-            </Nav>
-        </NavBarDiv>
+                <ul id="openedItemsMenu"></ul>
+            </div>
     )
 }
 export default NavBar

@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import EncounterView from './EncounterViewComponent'
-import Footer from './FooterComponent'
 import Header from './HeaderComponent'
 import Home from './HomeComponent'
 import NavBar from './NavBarComponent'
@@ -17,37 +16,37 @@ const devPatientState = JSON.parse(patientJSONString)
 
 const Main: FunctionComponent = () => {
     return (
-        <div className="container">
-            <div className="row grow">
-                <div className="col-12 bg-warning">
-                    <Header />
-                </div>
-                <div className="col-1 bg-warning">
+        <div className="app-container ">
+            <Header />
+            <div className="container-fluid">
+                <div className="row">
                     <NavBar />
-                </div>
-
-                <div className="col-11">
-                    <Routes>
-                        <Route path="/home" element={<Home />} />
-                        <Route
-                            path="/patientView"
-                            element={<PatientView patient={devPatientState} />}
-                        />
-                        <Route
-                            path="/encounterView"
-                            element={<EncounterView />}
-                        />
-                        <Route path="/lookupView" element={<LookupView />} />
-                        <Route
-                            path="/AddEntityView"
-                            element={<AddEntityView />}
-                        />
-                    </Routes>
-                </div>
-            </div>
-            <div className="row">
-            <div className="col-12 bg-warning">
-                    <Footer/>
+                    <main
+                        className="col-md-9 ms-sm-auto col-lg-10 px-4"
+                        role="main"
+                    >
+                        <Routes>
+                            <Route path="/home" element={<Home />} />
+                            <Route
+                                path="/patientView"
+                                element={
+                                    <PatientView patient={devPatientState} />
+                                }
+                            />
+                            <Route
+                                path="/encounterView"
+                                element={<EncounterView />}
+                            />
+                            <Route
+                                path="/lookupView"
+                                element={<LookupView />}
+                            />
+                            <Route
+                                path="/AddEntityView"
+                                element={<AddEntityView />}
+                            />
+                        </Routes>
+                    </main>
                 </div>
             </div>
         </div>

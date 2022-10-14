@@ -32,15 +32,16 @@ function className(
     navItem: NavigationItem,
     currentSelection: NavigationItem | undefined
 ): string {
-    if (navItem == currentSelection) return EnumState.Selected + ' navItem'
-    else return 'navItem'
+    if (navItem == currentSelection) return EnumState.Selected + ' nav-item'
+    else return 'nav-item'
 }
 
 const NavBar: FunctionComponent = () => {
     let [selection, setSelection] = useState<NavigationItem>()
     return (
-            <div>
-                <ul>
+        <nav className="col-md-2 d-none d-md-block sidebar bg-light">
+            <div className="sidebar-sticky">
+                <ul className="nav flex-column">
                     <li
                         className={className(home, selection)}
                         onClick={() => {
@@ -48,38 +49,25 @@ const NavBar: FunctionComponent = () => {
                         }}
                         id={home.id}
                     >
-                        <Link to={home.link}>
-                            <img
-                                src={
-                                    home == selection
-                                        ? iconHomeSelected
-                                        : iconHome
-                                }
-                                alt={home.text}
-                            />
+                        <Link className="nav-link" to={home.link}>
+                            home
                         </Link>
                     </li>
-                   <li
+                    <li
                         className={className(lookup, selection)}
                         onClick={() => {
                             setSelection(lookup)
                         }}
                         id={lookup.id}
                     >
-                        <Link to={lookup.link}>
-                            <img
-                                src={
-                                    lookup == selection
-                                        ? iconLookupSelected
-                                        : iconLookup
-                                }
-                                alt={lookup.text}
-                            />
+                        <Link className="nav-link" to={lookup.link}>
+                            lookup
                         </Link>
-                    </li> 
+                    </li>
                 </ul>
-                <ul id="openedItemsMenu"></ul>
+                <ul className="nav flex-column mb-2" id="openedItemsMenu"></ul>
             </div>
+        </nav>
     )
 }
 export default NavBar

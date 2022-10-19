@@ -21,12 +21,24 @@ interface NavigationItem {
     id: string
 }
 
-let home: NavigationItem = { text: 'home', link: '/home', id: 'home' }
+let home: NavigationItem = { text: 'home', link: '/home', id: 'homeView' }
 let lookup: NavigationItem = {
     text: 'rechercher',
     link: '/lookupView',
     id: 'lookupView',
 }
+let patient: NavigationItem = {
+    text: 'patient',
+    link: '/patientView',
+    id: 'patientView',
+}
+let encounter: NavigationItem = {
+    text: 'enconter',
+    link: '/encounterView',
+    id: 'enconterView',
+}
+
+let views = [ home, lookup, patient, encounter ];
 
 function className(
     navItem: NavigationItem,
@@ -42,28 +54,21 @@ const NavBar: FunctionComponent = () => {
         <nav className="col-md-2 d-none d-md-block sidebar bg-light">
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
-                    <li
-                        className={className(home, selection)}
-                        onClick={() => {
-                            setSelection(home)
-                        }}
-                        id={home.id}
-                    >
-                        <Link className="nav-link" to={home.link}>
-                            home
-                        </Link>
-                    </li>
-                    <li
-                        className={className(lookup, selection)}
-                        onClick={() => {
-                            setSelection(lookup)
-                        }}
-                        id={lookup.id}
-                    >
-                        <Link className="nav-link" to={lookup.link}>
-                            lookup
-                        </Link>
-                    </li>
+                    {views.map((element) => {
+                        return (
+                            <li
+                                className={className(element, selection)}
+                                onClick={() => {
+                                    setSelection(element)
+                                }}
+                                key = {element.id}
+                            >
+                                <Link className="nav-link" to={element.link}>
+                                    {element.text}
+                                </Link>
+                            </li>
+                        )
+                    })}
                 </ul>
                 <ul className="nav flex-column mb-2" id="openedItemsMenu"></ul>
             </div>

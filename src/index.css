@@ -35,29 +35,12 @@
 }
 
 
-
-.white-h-gradient {
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 100%); 
+.patient-data[gender="M"]::before{
+    content: "\002642"
 }
-.white-h-gradient:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgb(255,255,255);
-    background: linear-gradient(to bottom, #fff 0%,#d2cece 100%);
-    transition: opacity .35s ease-in-out;
+.patient-data[gender="F"]::before{
+    content: "\002640"
 }
-
-
-.white-h-gradient a {
-    position: relative;
-    z-index: 1;
-}
-
-.white-h-gradient:hover:before {
-    opacity: 0;
+.patient-data::before{
+    font-size: 1.1rem;
 }

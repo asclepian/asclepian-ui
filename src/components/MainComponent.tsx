@@ -30,7 +30,7 @@ const Main: FunctionComponent = () => {
                             <Route
                                 path="/patientView"
                                 element={
-                                    <PatientView patient={devPatientState} />
+                                    <PatientView patientJSON={devPatientState} />
                                 }
                             />
                             <Route

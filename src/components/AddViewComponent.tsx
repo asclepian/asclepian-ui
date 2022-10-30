@@ -1,6 +1,6 @@
-import { FunctionComponent } from 'react'
+import React from 'react'
 
-const AddEntityView: FunctionComponent = () => {
+function AddEntityView(){
     return <div> Add </div>
 }
 export default AddEntityView

@@ -32,13 +32,18 @@ let patient: NavigationItem = {
     link: '/patientView',
     id: 'patientView',
 }
+let patientList: NavigationItem = {
+    text: 'patients',
+    link: '/patientListView',
+    id: 'patientListView',
+}
 let encounter: NavigationItem = {
     text: 'enconter',
     link: '/encounterView',
     id: 'enconterView',
 }
 
-let views = [ home, lookup, patient, encounter ];
+let views = [ home, lookup, patient, patientList, encounter ];
 
 function className(
     navItem: NavigationItem,

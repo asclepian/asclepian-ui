@@ -6,7 +6,8 @@ import PatientLookup from './PatientLookupComponent'
 const Lookup: FunctionComponent = () => {
     return (
         <div>
-            <PatientLookup /> <EncounerLookup />
+            <PatientLookup />
+            <EncounerLookup />
         </div>
     )
 }

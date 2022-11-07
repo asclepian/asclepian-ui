@@ -9,6 +9,9 @@ import PatientView from './PatientViewComponent'
 import PatientListView from './PatientListViewComponent'
 import LookupView from './LookupViewComponent'
 import AddEntityView from './AddViewComponent'
+import PatientLoader from './PatientLoaderComponent'
+import EditPatientView from './EditPatientViewComponent'
+import { useForm } from 'react-hook-form'
 
 const patientJSONString =
     '{ "id": 999, "filenum": "D999", "cin": "M3928945", "lastname": "Thornhill", "firstname": "Leonanie", "landline": "0", "insured": true, "active": true, "mobile": "953-286-3891", "gender": "M", "job": null, "birthdate": "1966-07-17", "address": "540 Hagan Circle", "city": null, "postalcode": 70241, "createdby": null, "createdon": null, "_links": { "self": { "href": "http://localhost:8090/patients/999" }, "patients": { "href": "http://localhost:8090/patients{?filenum,firstname,lastname,page,size}", "templated": true } } }'
@@ -18,49 +21,44 @@ const patientListJSONString = '{"_embedded":{"patientList":[{"id":999,"filenum":
 const devPatientState = JSON.parse(patientJSONString)
 const devPatientListState = JSON.parse(patientListJSONString)
 
-const Main: FunctionComponent = () => {
-    return (
-        <div className="app-container ">
-            <Header />
-            <div className="container-fluid">
-                <div className="row">
-                    <NavBar />
-                    <main
-                        className="col-md-9 ms-sm-auto col-lg-10 px-2"
-                        role="main"
-                    >
-                        <Routes>
-                            <Route path="/home" element={<Home />} />
-                            <Route
-                                path="/patientView"
-                                element={
-                                    <PatientView patientJSON={devPatientState} />
-                                }
-                            />
-                            <Route
-                                path="/patientListView"
-                                element={
-                                    <PatientListView patientListJSON={devPatientListState._embedded.patientList} />
-                                }
-                            />
-                            <Route
-                                path="/encounterView"
-                                element={<EncounterView />}
-                            />
-                            <Route
-                                path="/lookupView"
-                                element={<LookupView />}
-                            />
-                            <Route
-                                path="/AddEntityView"
-                                element={<AddEntityView />}
-                            />
-                        </Routes>
-                    </main>
-                </div>
+const Main: FunctionComponent = () => (
+    <div className="app-container ">
+        <Header />
+        <div className="container-fluid">
+            <div className="row">
+                <NavBar />
+                <main
+                    className="col-md-9 ms-sm-auto col-lg-10 px-2"
+                    role="main"
+                >
+                    <Routes>
+                        <Route path="/home" element={<Home />} />
+                        <Route
+                            path="/patientView"
+                            element={<PatientView patientJSON={devPatientState} />} />
+                        <Route
+                            path="/patientListView"
+                            element={<PatientListView patientListJSON={devPatientListState._embedded.patientList} />} />
+                        <Route
+                            path="/encounterView"
+                            element={<EncounterView />} />
+                        <Route
+                            path="/lookupView"
+                            element={<LookupView />} />
+                        <Route
+                            path="/AddEntityView"
+                            element={<AddEntityView />} />
+                        <Route
+                            path="/patientViewQuery"
+                            element={<PatientLoader filenum="D965" />} />
+                        <Route
+                            path="/editPatient"
+                            element={<EditPatientView form={useForm()} onSubmit={(data) => console.log(data)} />} />
+                    </Routes>
+                </main>
             </div>
         </div>
-    )
-}
+    </div>
+)
 
 export default Main

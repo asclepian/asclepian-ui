@@ -43,7 +43,13 @@ let encounter: NavigationItem = {
     id: 'enconterView',
 }
 
-let views = [ home, lookup, patient, patientList, encounter ];
+let queryPatient:NavigationItem = {
+    text: 'query patient',
+    link: '/patientViewQuery',
+    id: 'queryPatient',
+}
+
+let views = [ home, lookup, patient, patientList, encounter, queryPatient ];
 
 function className(
     navItem: NavigationItem,

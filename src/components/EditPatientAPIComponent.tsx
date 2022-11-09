@@ -10,6 +10,7 @@ interface Props {
 }
 function EditPatientAPI({patient}:Props){
     async function handleSubmit(data: EditPatientFormModel) {
+        console.log("received submit in API "+{data})
         const submitData = {
             filenum: data.filenum,
             cin: data.cin,
@@ -26,8 +27,8 @@ function EditPatientAPI({patient}:Props){
             insured: data.insured,
             job: data.job,
         }
-        return fetch(globalConfig.config.apiUrl+'/patients', {
-            method: 'POST',
+        return fetch(globalConfig.config.apiUrl+'/patients/'+patient.id, {
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ function EditPatientAPI({patient}:Props){
         })
     }
     const defaultValues : EditPatientFormModel = patient ;
-    return <EditPatientLogic defaultValues={patient} onSubmit={handleSubmit}/>
+    return <EditPatientLogic defaultValues={defaultValues} onSubmit={handleSubmit}/>
 }
 
 export default EditPatientAPI;

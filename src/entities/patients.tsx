@@ -9,6 +9,7 @@ export interface Patient {
     insured: boolean
     active: boolean
     mobile: string
+    email: string
     gender: string
     job: any
     birthdate: Date

@@ -1,18 +1,21 @@
 import React from 'react'
-import { useForm, SubmitHandler, UseFormReturn } from 'react-hook-form'
+import { FormEvent } from 'react';
+import { UseFormReturn } from 'react-hook-form'
+import { Patient } from '../entities/patients';
 import { EditPatientFormModel } from './EditPatientLogicComponent';
 
 interface Props {
     form: UseFormReturn<EditPatientFormModel>;
-    onSubmit: (data: any) => any;
+    onSubmit: (data: EditPatientFormModel) => any;
 }
 
 
 function EditPatientView({ form, onSubmit }: Props) {
-    const { formState, register, handleSubmit } = form
-    const { errors, isSubmitting } = formState
+    const { formState, register, handleSubmit } = form;
+    const { errors, isSubmitting } = formState;
+    
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit,(erros) =>{console.log(erros)})}>
             <div>
                 <label>Numero De Dossier</label>
                 <div>
@@ -20,6 +23,7 @@ function EditPatientView({ form, onSubmit }: Props) {
                         type="text"
                         placeholder="Numero de dossier"
                         {...register('filenum')}
+                        readOnly
                     />
                 </div>
                 <div>{errors?.filenum?.message?.toString()}</div>
@@ -159,7 +163,7 @@ function EditPatientView({ form, onSubmit }: Props) {
 
             {/* ... more fields here */}
 
-            <button disabled={isSubmitting} type="submit">
+            <button disabled={isSubmitting} type="submit" >
                 Submit
             </button>
         </form>

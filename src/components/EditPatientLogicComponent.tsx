@@ -29,6 +29,7 @@ import React from 'react'
  */
 export interface EditPatientFormModel {
     filenum: string
+    email: string
     cin: string
     lastname: string
     firstname: string
@@ -47,8 +48,7 @@ export interface EditPatientFormModel {
 
 const EditPatientFormSchema = yup.object().shape({
     filenum: yup.string().min(1).required(),
-    username: yup.string().min(5).required(),
-    email: yup.string().email().required(),
+    email: yup.string().email(),
     cin: yup.string().min(5).required(),
     lastname: yup.string().min(2).required(),
     firstname: yup.string().min(2).required(),
@@ -78,6 +78,7 @@ function EditPatientLogic({ defaultValues, onSubmit }: Props){
     })
 
     const handleSubmit = async (data: EditPatientFormModel) => {
+        console.log("received data in logic"+data)
         await onSubmit(data)
             .then(() => form.reset(data))
             .catch((err) => console.error(err))

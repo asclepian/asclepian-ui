@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 const iconHome = String(require('../icons/browse-page-64-secondary.png'));
@@ -74,9 +74,9 @@ const NavBar: FunctionComponent = () => {
                                 }}
                                 key = {element.id}
                             >
-                                <Link className="nav-link" to={element.link}>
+                                <NavLink className="nav-link" to={element.link}>
                                     {element.text}
-                                </Link>
+                                </NavLink>
                             </li>
                         )
                     })}

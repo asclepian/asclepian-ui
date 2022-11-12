@@ -1,0 +1,227 @@
+import React, { useRef,KeyboardEvent } from 'react'
+import { UseFormReturn } from 'react-hook-form'
+import { PatientFormModel } from './PatientFormLogic'
+
+interface Props {
+    form: UseFormReturn<PatientFormModel>
+    onSubmit: (data: PatientFormModel) => any
+}
+
+function PatientFormView({ form, onSubmit }: Props) {
+    const { formState, register, handleSubmit } = form
+    const { errors, isSubmitting } = formState
+    function checkKeyDown(e:KeyboardEvent){
+        if (e.code === 'Enter') e.preventDefault();
+      };
+    return (
+        <form
+            className="p-1 col-sm-8"
+            onSubmit={handleSubmit(onSubmit, (erros) => {
+                console.error(erros)
+            })}
+            onKeyDown={(e) => checkKeyDown(e)}
+        >
+            <div className="mb-3 row">
+                <label htmlFor="filenum" className="col-sm-3 col-form-label">
+                    Numero De Dossier
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="filenum"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Numero de dossier"
+                        {...register('filenum')}
+                        readOnly
+                    />
+                </div>
+                <div>{errors?.filenum?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="lastname" className="col-sm-3 col-form-label">
+                    Nom de famille
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="lastname"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Saisir nom de famille"
+                        {...register('lastname')}
+                    />
+                </div>
+                <div>{errors?.lastname?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="firstname" className="col-sm-3 col-form-label">
+                    Prénom
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="firstname"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Saisir prénom"
+                        {...register('firstname')}
+                    />
+                </div>
+                <div>{errors?.firstname?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="gender" className="col-sm-3 col-form-label">
+                    Sexe
+                </label>
+                <div className="col-sm-9 py-12 d-flex align-items-center">
+                    <select id="gender" {...register('gender')}>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+                <div>{errors?.gender?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="birthdate" className="col-sm-3 col-form-label">
+                    Date de naissance
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="birthdate"
+                        className="shadow-sm form-control"
+                        type="Date"
+                        placeholder="date de naissance"
+                        {...register('birthdate')}
+                    />
+                </div>
+                <div>{errors?.birthdate?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="address" className="col-sm-3 col-form-label">
+                    Adresse
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="address"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Adresse"
+                        {...register('address')}
+                    />
+                </div>
+                <div>{errors?.address?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="city" className="col-sm-3 col-form-label">
+                    Ville
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="city"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Ville"
+                        {...register('city')}
+                    />
+                </div>
+                <div>{errors?.city?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="postalcode" className="col-sm-3 col-form-label">
+                    Code Postale
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="postalecode"
+                        className="shadow-sm form-control"
+                        type="number"
+                        placeholder="Code Postale"
+                        {...register('postalcode')}
+                    />
+                </div>
+                <div>{errors?.postalcode?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="landline" className="col-sm-3 col-form-label">
+                    Tel
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="landline"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="landline"
+                        {...register('landline')}
+                    />
+                </div>
+                <div>{errors?.landline?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="mobile" className="col-sm-3 col-form-label">
+                    Mobile
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="mobile"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="mobile"
+                        {...register('mobile')}
+                    />
+                </div>
+                <div>{errors?.mobile?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="active" className="col-sm-3 col-form-label">
+                    Compte actif
+                </label>
+                <div className="col-sm-9 py-12 d-flex align-items-center">
+                    <input className='form-check-input'
+                        id="active"
+                        // className="shadow-sm form-control"
+                        type="checkbox"
+                        placeholder="Actif"
+                        {...register('active')}
+                    />
+                </div>
+                <div>{errors?.active?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="insured" className="col-sm-3 col-form-label">
+                    Mutualisé
+                </label>
+                <div className="col-sm-9 py-12 d-flex align-items-center">
+                    <input className="form-check-input"
+                        id="insured"
+                        // className="shadow-sm form-control"
+                        type="checkbox"
+                        placeholder="Mutualisé"
+                        {...register('insured')}
+                    />
+                </div>
+                <div>{errors?.insured?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
+                <label htmlFor="job" className="col-sm-3 col-form-label">
+                    Mêtier
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="job"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Mêtier"
+                        {...register('job')}
+                    />
+                </div>
+                <div>{errors?.job?.message?.toString()}</div>
+            </div>
+
+            {/* ... more fields here */}
+
+            <button className='mb-3 col-12 btn btn-primary text-white' disabled={isSubmitting} type="submit">
+                Submit
+            </button>
+        </form>
+    )
+}
+
+export default PatientFormView

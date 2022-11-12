@@ -1,8 +1,9 @@
-import EditPatientView from './EditPatientViewComponent'
+import PatientFormView from './PatientFormView'
 import { useForm } from 'react-hook-form'
-import {yupResolver} from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import React from 'react'
+import { parse, isDate } from 'date-fns'
 
 /**
 (
@@ -27,7 +28,10 @@ import React from 'react'
     createdon date,
     createdby integer,
  */
-export interface EditPatientFormModel {
+export interface PatientFormModel {
+    id: number
+    createdon: string
+    createdby: string
     filenum: string
     email: string
     cin: string
@@ -46,14 +50,19 @@ export interface EditPatientFormModel {
     //... more fields here
 }
 
-const EditPatientFormSchema = yup.object().shape({
+const PatientFormSchema = yup.object().shape({
     filenum: yup.string().min(1).required(),
-    email: yup.string().email(),
+    email: yup.string().email().nullable(),
     cin: yup.string().min(5).required(),
     lastname: yup.string().min(2).required(),
     firstname: yup.string().min(2).required(),
     gender: yup.string().required().matches(/(M|F)/),
-    birthdate: yup.date().required(),
+    birthdate: yup
+        .string()
+        .required()
+        .transform((value, originalValue) => {
+            return isDate(parse(originalValue, 'yyyy-MM-dd', new Date()))?originalValue:null;
+        }),
     address: yup.string(),
     city: yup.string(),
     postalcode: yup.number(),
@@ -66,25 +75,25 @@ const EditPatientFormSchema = yup.object().shape({
 })
 
 interface Props {
-    defaultValues: EditPatientFormModel,
-    onSubmit: (data: EditPatientFormModel) => Promise<Response>
+    defaultValues: PatientFormModel
+    onSubmit: (data: PatientFormModel) => Promise<Response>
 }
 
-function EditPatientLogic({ defaultValues, onSubmit }: Props){
-    const form = useForm<EditPatientFormModel>({
+function PatientFormLogic({ defaultValues, onSubmit }: Props) {
+    const form = useForm<PatientFormModel>({
         mode: 'onSubmit',
         defaultValues,
-        resolver: yupResolver(EditPatientFormSchema),
+        resolver: yupResolver(PatientFormSchema),
     })
 
-    const handleSubmit = async (data: EditPatientFormModel) => {
-        console.log("received data in logic"+data)
+    const handleSubmit = async (data: PatientFormModel) => {
+        // console.log('received data in logic' + data)
         await onSubmit(data)
             .then(() => form.reset(data))
             .catch((err) => console.error(err))
     }
 
-    return <EditPatientView form={form} onSubmit={handleSubmit} />
+    return <PatientFormView form={form} onSubmit={handleSubmit} />
 }
 
-export default EditPatientLogic
+export default PatientFormLogic

@@ -1,9 +1,9 @@
 import React from 'react'
-import PatientView from './PatientViewComponent'
+import PatientCardView from './PatientCardView'
 import { useRef } from 'react'
 import { useQuery } from 'react-query'
-import { Patient } from '../entities/patients'
-import { globalConfig } from "../Configuration/config";
+import { Patient } from '../../../entities/patients'
+import { globalConfig } from "../../../configuration/config";
 const URL = globalConfig.config.apiUrl+'/patients?size={1}&page={2}'
 
 interface Props { 
@@ -22,8 +22,9 @@ function PatientListView({ patientListJSON}:Props) {
         return <div className="row p-1">Loading...</div>
     }
     if (error){
-        console.log('An error has occurred: ' + (error instanceof Error)?error.message:'error');
-        return <div className="row p-1"> {(error instanceof Error) ? error.message : 'error'}</div>
+        let errorMessage = (error instanceof Error)?error.message:'error';
+        console.log('An error has occurred: ' + errorMessage);
+        return <div className="row p-1"> {errorMessage}</div>
     }
     //let patientList = patientListJSON.patientListJSON
     console.log('received data')
@@ -32,7 +33,7 @@ function PatientListView({ patientListJSON}:Props) {
         <div className="row p-1">
             {data instanceof Object
                 ? data._embedded.patientList.map((p) => (
-                      <PatientView key={p.filenum} patientJSON={p} />
+                      <PatientCardView key={p.filenum} patientJSON={p} />
                   ))
                 : 'Empty'}
         </div>

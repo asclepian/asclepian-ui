@@ -2,12 +2,6 @@ import React, { FunctionComponent, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-const iconHome = String(require('../icons/browse-page-64-secondary.png'));
-const iconLookup = String(require('../icons/search-64-secondary.png'));
-const iconHomeSelected = String(require('../icons/browse-page-64-accent.png'));
-const iconLookupSelected = String(require('../icons/search-64-accent.png'));
-// import iconHomeHover from '../icons/home-64-accent.png';
-// import iconHomeSelected from '../icons/home-64-dominant.png'
 
 
 enum EnumState {
@@ -49,7 +43,7 @@ let queryPatient:NavigationItem = {
     id: 'queryPatient',
 }
 
-let views = [ home, lookup, patient, patientList, encounter, queryPatient ];
+let views = [ home, lookup, patient, patientList, encounter, queryPatient];
 
 function className(
     navItem: NavigationItem,

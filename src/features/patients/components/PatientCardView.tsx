@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Collapse from 'react-bootstrap/Collapse'
-import { Patient } from '../entities/patients'
+import { Link } from 'react-router-dom'
+import { Patient } from '../../../entities/patients'
 
 interface ICollapseState {
     collapseMenu: boolean
 }
 
-function PatientView(props: { patientJSON: Patient }) {
+function PatientCardView(props: { patientJSON: Patient }) {
     let patient: Patient = props.patientJSON
     const [collapseState, toggleCollapse] = useState<ICollapseState>({
         collapseMenu: true,
@@ -58,7 +59,7 @@ function PatientView(props: { patientJSON: Patient }) {
                             : 'bi-gender-female')
                     }
                 >
-                    {patient.birthdate} #{patient.id}
+                    {patient.birthdate+"#"+patient.id}
                 </h6>
                 <Collapse in={!collapseState.collapseMenu}>
                     <div className="card-text">
@@ -73,9 +74,9 @@ function PatientView(props: { patientJSON: Patient }) {
                                 {patient.address} {patient.city}
                             </li>
                         </ul>
-                        <a className="card-link" href="#">
+                        <Link className="card-link" to={"/patientEdit/"+patient.filenum}>
                             Editer
-                        </a>
+                        </Link> 
                         <a className="card-link" href="#">
                             Sauvegarder
                         </a>
@@ -86,4 +87,4 @@ function PatientView(props: { patientJSON: Patient }) {
     )
 }
 
-export default PatientView
+export default PatientCardView

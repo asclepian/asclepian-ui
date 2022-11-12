@@ -1,16 +1,14 @@
-import { globalConfig } from '../Configuration/config'
-import EditPatientLogic, {
-    EditPatientFormModel,
-} from './EditPatientLogicComponent'
-import {Patient} from '../entities/patients'
+import { globalConfig } from '../../../configuration/config'
+import PatientFormLogic, { PatientFormModel } from './PatientFormLogic'
+import { Patient } from '../../../entities/patients'
 import React from 'react'
 
-interface Props { 
+interface Props {
     patient: Patient
 }
-function EditPatientAPI({patient}:Props){
-    async function handleSubmit(data: EditPatientFormModel) {
-        console.log("received submit in API "+{data})
+function PatientAPI({ patient }: Props) {
+    async function handleSubmit(data: PatientFormModel) {
+        console.log('received submit in API ' + { data })
         const submitData = {
             filenum: data.filenum,
             cin: data.cin,
@@ -23,11 +21,12 @@ function EditPatientAPI({patient}:Props){
             postalcode: data.postalcode,
             landline: data.landline,
             mobile: data.mobile,
+            email: data.email,
             active: data.active,
             insured: data.insured,
             job: data.job,
         }
-        return fetch(globalConfig.config.apiUrl+'/patients/'+patient.id, {
+        return fetch(globalConfig.config.apiUrl + '/patients/' + patient.id, {
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
@@ -36,8 +35,9 @@ function EditPatientAPI({patient}:Props){
             body: JSON.stringify(submitData),
         })
     }
-    const defaultValues : EditPatientFormModel = patient ;
-    return <EditPatientLogic defaultValues={defaultValues} onSubmit={handleSubmit}/>
+    return (
+        <PatientFormLogic defaultValues={patient} onSubmit={handleSubmit} />
+    )
 }
 
-export default EditPatientAPI;
+export default PatientAPI

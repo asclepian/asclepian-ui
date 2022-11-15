@@ -56,7 +56,7 @@ function className(
 const NavBar: FunctionComponent = () => {
     let [selection, setSelection] = useState<NavigationItem>()
     return (
-        <nav className="col-md-2 d-none d-md-block sidebar bg-light">
+        <nav className="col-md-1 d-none d-md-block sidebar bg-light">
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
                     {views.map((element) => {

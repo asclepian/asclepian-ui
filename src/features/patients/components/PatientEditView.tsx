@@ -1,30 +1,26 @@
 import React from 'react'
-import  {useParams} from 'react-router-dom' 
-import PatientAPI from './PatientAPI'
+import { useParams } from 'react-router-dom'
+import PatientAPIWrappper from './PatientAPIWrapper'
+import { getPatientByFilenum } from '../services'
 import { useQuery } from 'react-query'
-import { globalConfig } from "../../../configuration/config";
-const URL = globalConfig.config.apiUrl+'/patients?size={1}&page={2}'
-
+import { Patient } from '../entities'
 
 function PatientEditView() {
-    let {filenum} = useParams();
+    let { filenum } = useParams()
+    if( typeof filenum === 'undefined') return  <PatientAPIWrappper patient={undefined} />
 
-    const { isLoading, error, data } = useQuery('patient'+filenum, () =>
-        fetch(globalConfig.config.apiUrl+'/patients?exactFilenum='+filenum).then((res) => res.json())
+    const { isLoading, error, data } = useQuery('patient' + filenum, () =>
+        getPatientByFilenum(filenum)
     )
     if (isLoading) {
-        // console.log('Loading...');
         return <div className="row p-1">Loading...</div>
     }
-    if (error){
-        let errorMessage = (error instanceof Error)?error.message:'error';
-        // console.log('An error has occurred: ' + errorMessage);
+    if (error) {
+        let errorMessage = error instanceof Error ? error.message : 'error'
         return <div className="row p-1"> {errorMessage}</div>
     }
-
     // console.log('received data within: ' + PatientEditView.name+' => '+{data})
-    return (
-   <PatientAPI patient={data} /> 
-    )
+    console.log("new Edit view patient type: "+(typeof data)+data)
+    return <PatientAPIWrappper patient={data} />
 }
 export default PatientEditView

@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import React from 'react'
 import { parse, isDate } from 'date-fns'
+import { Patient } from '../entities'
 
 /**
 (
@@ -28,27 +29,6 @@ import { parse, isDate } from 'date-fns'
     createdon date,
     createdby integer,
  */
-export interface PatientFormModel {
-    id: number
-    createdon: string
-    createdby: string
-    filenum: string
-    email: string
-    cin: string
-    lastname: string
-    firstname: string
-    gender: string
-    birthdate: Date
-    address: string
-    city: string
-    postalcode: number
-    landline: string
-    mobile: string
-    active: boolean
-    insured: boolean
-    job: string
-    //... more fields here
-}
 
 const PatientFormSchema = yup.object().shape({
     filenum: yup.string().min(1).required(),
@@ -75,25 +55,27 @@ const PatientFormSchema = yup.object().shape({
 })
 
 interface Props {
-    defaultValues: PatientFormModel
-    onSubmit: (data: PatientFormModel) => Promise<Response>
+    defaultValues: Patient|undefined
+    onSubmit: (data: Patient) => Promise<Response>
+    isNew: boolean
 }
 
-function PatientFormLogic({ defaultValues, onSubmit }: Props) {
-    const form = useForm<PatientFormModel>({
+function PatientFormLogic({ defaultValues, onSubmit, isNew }: Props) {
+    console.log("new Form view isNew: "+isNew)
+    const form = useForm<Patient>({
         mode: 'onSubmit',
         defaultValues,
         resolver: yupResolver(PatientFormSchema),
     })
 
-    const handleSubmit = async (data: PatientFormModel) => {
+    const handleSubmit = async (data: Patient) => {
         // console.log('received data in logic' + data)
         await onSubmit(data)
             .then(() => form.reset(data))
             .catch((err) => console.error(err))
     }
 
-    return <PatientFormView form={form} onSubmit={handleSubmit} />
+    return <PatientFormView form={form} onSubmit={handleSubmit} isNew={isNew} />
 }
 
 export default PatientFormLogic

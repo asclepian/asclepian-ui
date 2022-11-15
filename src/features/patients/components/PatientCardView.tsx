@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Collapse from 'react-bootstrap/Collapse'
 import { Link } from 'react-router-dom'
-import { Patient } from '../../../entities/patients'
+import { Patient } from '../entities'
 
 interface ICollapseState {
     collapseMenu: boolean

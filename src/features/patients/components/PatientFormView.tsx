@@ -1,13 +1,15 @@
 import React, { useRef,KeyboardEvent } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { PatientFormModel } from './PatientFormLogic'
+import { Patient } from '../entities'
 
 interface Props {
-    form: UseFormReturn<PatientFormModel>
-    onSubmit: (data: PatientFormModel) => any
+    form: UseFormReturn<Patient>
+    onSubmit: (data: Patient) => any
+    isNew: boolean
 }
 
-function PatientFormView({ form, onSubmit }: Props) {
+function PatientFormView({ form, onSubmit, isNew}: Props) {
+    console.log("new Form view isNew: "+isNew)
     const { formState, register, handleSubmit } = form
     const { errors, isSubmitting } = formState
     function checkKeyDown(e:KeyboardEvent){
@@ -31,8 +33,8 @@ function PatientFormView({ form, onSubmit }: Props) {
                         className="shadow-sm form-control"
                         type="text"
                         placeholder="Numero de dossier"
+                        readOnly={!isNew}
                         {...register('filenum')}
-                        readOnly
                     />
                 </div>
                 <div>{errors?.filenum?.message?.toString()}</div>
@@ -68,11 +70,26 @@ function PatientFormView({ form, onSubmit }: Props) {
                 <div>{errors?.firstname?.message?.toString()}</div>
             </div>
             <div className="mb-3 row">
+                <label htmlFor="cin" className="col-sm-3 col-form-label">
+                    CIN
+                </label>
+                <div className="col-sm-9 py-12">
+                    <input
+                        id="cin"
+                        className="shadow-sm form-control"
+                        type="text"
+                        placeholder="Saisir CIN"
+                        {...register('cin')}
+                    />
+                </div>
+                <div>{errors?.cin?.message?.toString()}</div>
+            </div>
+            <div className="mb-3 row">
                 <label htmlFor="gender" className="col-sm-3 col-form-label">
                     Sexe
                 </label>
                 <div className="col-sm-9 py-12 d-flex align-items-center">
-                    <select id="gender" {...register('gender')}>
+                    <select className='form-select' id="gender" {...register('gender')}>
                         <option value="M">Homme</option>
                         <option value="F">Femme</option>
                     </select>
@@ -99,13 +116,13 @@ function PatientFormView({ form, onSubmit }: Props) {
                     Adresse
                 </label>
                 <div className="col-sm-9 py-12">
-                    <input
+                    <textarea
                         id="address"
                         className="shadow-sm form-control"
-                        type="text"
+                        rows={3}
                         placeholder="Adresse"
                         {...register('address')}
-                    />
+                    ></textarea>
                 </div>
                 <div>{errors?.address?.message?.toString()}</div>
             </div>
@@ -173,7 +190,7 @@ function PatientFormView({ form, onSubmit }: Props) {
                 <label htmlFor="active" className="col-sm-3 col-form-label">
                     Compte actif
                 </label>
-                <div className="col-sm-9 py-12 d-flex align-items-center">
+                <div className="col-sm-9 py-12 d-flex align-items-center form-check form-switch">
                     <input className='form-check-input'
                         id="active"
                         // className="shadow-sm form-control"
@@ -188,7 +205,7 @@ function PatientFormView({ form, onSubmit }: Props) {
                 <label htmlFor="insured" className="col-sm-3 col-form-label">
                     Mutualisé
                 </label>
-                <div className="col-sm-9 py-12 d-flex align-items-center">
+                <div className="col-sm-9 py-12 d-flex align-items-center form-check form-switch">
                     <input className="form-check-input"
                         id="insured"
                         // className="shadow-sm form-control"

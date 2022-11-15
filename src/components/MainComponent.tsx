@@ -13,8 +13,7 @@ import {
 } from '../features/patients'
 import LookupView from './LookupViewComponent'
 import AddEntityView from './AddViewComponent'
-import { Patient } from '../entities/patients'
-
+import { Patient } from '../features/patients/entities'
 
 const patientJSONString =
     '{ "id": 999, "filenum": "D999", "cin": "M3928945", "lastname": "Thornhill", "firstname": "Leonanie", "landline": "0", "insured": true, "active": true, "mobile": "953-286-3891", "gender": "M", "job": null, "birthdate": "1966-07-17", "address": "540 Hagan Circle", "city": null, "postalcode": 70241, "createdby": null, "createdon": null, "_links": { "self": { "href": "http://localhost:8090/patients/999" }, "patients": { "href": "http://localhost:8090/patients{?filenum,firstname,lastname,page,size}", "templated": true } } }'
@@ -32,7 +31,7 @@ const Main: FunctionComponent = () => (
             <div className="row">
                 <NavBar />
                 <main
-                    className="col-md-10 ms-sm-auto col-lg-10 px-2"
+                    className="col-md-11 ms-sm-auto col-lg-11 px-2"
                     role="main"
                 >
                     <Routes>
@@ -45,9 +44,7 @@ const Main: FunctionComponent = () => (
                         />
                         <Route
                             path="/patientView/:filenum"
-                            element={
-                                <PatientLoader filenum=""/>
-                            }
+                            element={<PatientLoader filenum="" />}
                         />
                         <Route
                             path="/patientListView"
@@ -62,17 +59,15 @@ const Main: FunctionComponent = () => (
                             element={<EncounterView />}
                         />
                         <Route path="/lookupView" element={<LookupView />} />
-                        <Route
-                            path="/AddEntityView"
-                            element={<AddEntityView />}
-                        />
-                        <Route
-                            path="/patientViewQuery"
-                            element={<PatientLoader filenum="D965" />}
-                        />
+                
                         <Route
                             path="/patientEdit/:filenum"
-                            element={<PatientEditView/>} /> 
+                            element={<PatientEditView />}
+                        />
+                        <Route
+                            path="/patientEdit"
+                            element={<PatientEditView />}
+                        />
                     </Routes>
                 </main>
             </div>

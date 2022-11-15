@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react'
 const Header: FunctionComponent = () => {
     return (
         <nav className="navbar navbar-secondary fixed-top bg-secondary flex-md-nowrap p-0">
-            <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+            <a className="navbar-brand col-sm-3 col-md-1 col-lg-1 mr-0" href="#">
                 Company name
             </a>
             <input

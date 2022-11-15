@@ -1,5 +1,5 @@
 
-export interface Patient {
+interface Patient {
     id: number
     filenum: string
     cin: string
@@ -16,7 +16,9 @@ export interface Patient {
     address: string
     city: any
     postalcode: number
-    createdby: any
-    createdon: any
+    createdby: number
+    createdon: Date
     _links?: any
 }
+
+export {Patient}

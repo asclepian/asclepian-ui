@@ -30,7 +30,7 @@ function PatientListView({ patientListJSON }: Props) {
         <div className="row p-1">
             {
                 (typeof data != 'undefined' )?data._embedded.patientList.map((p) => (
-                      <PatientCardView key={p.filenum} patientJSON={p} />
+                      <PatientCardView key={p.filenum} patientJSON={p as Patient} />
                   ))
                 : 'Empty'}
         </div>

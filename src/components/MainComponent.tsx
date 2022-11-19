@@ -36,38 +36,30 @@ const Main: FunctionComponent = () => (
                 >
                     <Routes>
                         <Route path="/home" element={<Home />} />
+
                         <Route
-                            path="/patientView"
-                            element={
-                                <PatientCardView patientJSON={devPatient} />
-                            }
-                        />
-                        <Route
-                            path="/patientView/:filenum"
-                            element={<PatientLoader filenum="" />}
-                        />
-                        <Route
-                            path="/patientListView"
+                            path="/patients"
                             element={
                                 <PatientListView
                                     patientListJSON={devPatientList}
                                 />
                             }
-                        />
+                        >
+                            <Route
+                                path=":filenum"
+                                element={<PatientLoader filenum="" />}
+                            />
+                            <Route
+                                path="edit/:filenum"
+                                element={<PatientEditView />}
+                            />
+                        </Route>
+
                         <Route
                             path="/encounterView"
                             element={<EncounterView />}
                         />
                         <Route path="/lookupView" element={<LookupView />} />
-                
-                        <Route
-                            path="/patientEdit/:filenum"
-                            element={<PatientEditView />}
-                        />
-                        <Route
-                            path="/patientEdit"
-                            element={<PatientEditView />}
-                        />
                     </Routes>
                 </main>
             </div>

@@ -74,7 +74,7 @@ function PatientCardView(props: { patientJSON: Patient }) {
                                 {patient.address} {patient.city}
                             </li>
                         </ul>
-                        <Link className="card-link" to={"/patientEdit/"+patient.filenum}>
+                        <Link className="card-link" to={"/patients/edit/"+patient.filenum}>
                             Editer
                         </Link> 
                         <a className="card-link" href="#">

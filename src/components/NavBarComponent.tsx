@@ -21,14 +21,9 @@ let lookup: NavigationItem = {
     link: '/lookupView',
     id: 'lookupView',
 }
-let patient: NavigationItem = {
-    text: 'patient',
-    link: '/patientView',
-    id: 'patientView',
-}
 let patientList: NavigationItem = {
     text: 'patients',
-    link: '/patientListView',
+    link: '/patients',
     id: 'patientListView',
 }
 let encounter: NavigationItem = {
@@ -43,7 +38,7 @@ let queryPatient:NavigationItem = {
     id: 'queryPatient',
 }
 
-let views = [ home, lookup, patient, patientList, encounter, queryPatient];
+let views = [ home, lookup, patientList, encounter, queryPatient];
 
 function className(
     navItem: NavigationItem,

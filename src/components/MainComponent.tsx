@@ -6,13 +6,11 @@ import Header from './HeaderComponent'
 import Home from './HomeComponent'
 import NavBar from './NavBarComponent'
 import {
-    PatientCardView,
     PatientEditView,
     PatientListView,
     PatientLoader,
 } from '../features/patients'
 import LookupView from './LookupViewComponent'
-import AddEntityView from './AddViewComponent'
 import { Patient } from '../features/patients/entities'
 
 const patientJSONString =
@@ -38,22 +36,21 @@ const Main: FunctionComponent = () => (
                         <Route path="/home" element={<Home />} />
 
                         <Route
-                            path="/patients"
+                            path="patients"
                             element={
                                 <PatientListView
                                     patientListJSON={devPatientList}
                                 />
                             }
-                        >
+                        />
                             <Route
-                                path=":filenum"
+                                path="patients/:filenum"
                                 element={<PatientLoader filenum="" />}
                             />
                             <Route
-                                path="edit/:filenum"
+                                path="patients/edit/:filenum"
                                 element={<PatientEditView />}
                             />
-                        </Route>
 
                         <Route
                             path="/encounterView"

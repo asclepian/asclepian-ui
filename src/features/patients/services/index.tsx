@@ -71,7 +71,7 @@ async function getPatientByFilenum(
     filenum: string | undefined
 ): Promise<Patient> {
     return await fetch(
-        globalConfig.config.apiUrl + '/patients?exactFilenum=' + filenum
+        globalConfig.config.apiUrl + '/patients/' + filenum
     ).then((res) => res.json())
 }
 

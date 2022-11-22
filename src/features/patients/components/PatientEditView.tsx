@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom'
 import PatientAPIWrappper from './PatientAPIWrapper'
 import { getPatientByFilenum } from '../services'
 import { useQuery } from 'react-query'
-import { Patient } from '../entities'
 
 function PatientEditView() {
     let { filenum } = useParams()
+    console.log("editing patient "+filenum)
     if( typeof filenum === 'undefined') return  <PatientAPIWrappper patient={undefined} />
 
     const { isLoading, error, data } = useQuery('patient' + filenum, () =>

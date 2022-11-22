@@ -1,4 +1,3 @@
-import { globalConfig } from '../../../configuration/config'
 import PatientFormLogic from './PatientFormLogic'
 import { postPatient, updatePatient } from '../services'
 import { Patient } from '../entities'

@@ -19,7 +19,7 @@ function PatientListView({ patientListJSON }: Props) {
         return <div className="row p-1">Loading...</div>
     }
     if (error || typeof data === 'undefined') {
-        let errorMessage = error instanceof Error ? error.message : 'error'
+        let errorMessage = error instanceof Error ? error.message : 'error '+String(error)
         console.log('An error has occurred: ' + errorMessage)
         return <div className="row p-1"> {errorMessage}</div>
     }

@@ -33,6 +33,7 @@ const Main: FunctionComponent = () => (
                     role="main"
                 >
                     <Routes>
+                        <Route index element={<Home/>}/>
                         <Route path="/home" element={<Home />} />
 
                         <Route
@@ -42,15 +43,20 @@ const Main: FunctionComponent = () => (
                                     patientListJSON={devPatientList}
                                 />
                             }
-                        />
+                        >
+                            <Route  index element={
+                                <PatientListView
+                                    patientListJSON={devPatientList}
+                                />}/>
                             <Route
-                                path="patients/:filenum"
+                                path=":filenum"
                                 element={<PatientLoader filenum="" />}
                             />
                             <Route
-                                path="patients/edit/:filenum"
+                                path="edit/:filenum"
                                 element={<PatientEditView />}
                             />
+                        </Route>
 
                         <Route
                             path="/encounterView"

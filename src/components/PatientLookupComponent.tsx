@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 
-const PatientLookup:FunctionComponent = () => { return (<div>PatientLookupComponent</div>)}
+const PatientLookup: FunctionComponent = () => { return (<div>PatientLookupComponent</div>) }
 
-export default PatientLookup;
+export default PatientLookup

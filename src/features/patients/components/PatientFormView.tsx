@@ -1,25 +1,25 @@
-import React, { useRef,KeyboardEvent } from 'react'
+import React, { KeyboardEvent } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { Patient } from '../entities'
 
 interface Props {
-    form: UseFormReturn<Patient>
-    onSubmit: (data: Patient) => any
-    isNew: boolean
+  form: UseFormReturn<Patient>
+  onSubmit: (data: Patient) => any
+  isNew: boolean
 }
 
-function PatientFormView({ form, onSubmit, isNew}: Props) {
-    console.log("new Form view isNew: "+isNew)
-    const { formState, register, handleSubmit } = form
-    const { errors, isSubmitting } = formState
-    function checkKeyDown(e:KeyboardEvent){
-        if (e.code === 'Enter') e.preventDefault();
-      };
-    return (
+function PatientFormView ({ form, onSubmit, isNew }: Props) {
+  const { formState, register, handleSubmit } = form
+  const { errors, isSubmitting } = formState
+  function checkKeyDown (e: KeyboardEvent) {
+    if (e.code === 'Enter') e.preventDefault()
+  };
+  return (
         <form
             className="p-1 col-sm-8"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={handleSubmit(onSubmit, (erros) => {
-                console.error(erros)
+              console.error(erros)
             })}
             onKeyDown={(e) => checkKeyDown(e)}
         >
@@ -238,7 +238,7 @@ function PatientFormView({ form, onSubmit, isNew}: Props) {
                 Submit
             </button>
         </form>
-    )
+  )
 }
 
 export default PatientFormView

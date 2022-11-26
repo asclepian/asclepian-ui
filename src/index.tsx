@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Main from './components/MainComponent'
@@ -13,29 +13,29 @@ import { withErrorBoundary } from 'react-error-boundary'
 const queryClient = new QueryClient()
 
 const rootElement = document.getElementById('root')
-if (!rootElement) throw new Error('Failed to find the root element')
+if (rootElement == null) throw new Error('Failed to find the root element')
 const root = createRoot(rootElement)
 
 interface ErrorFallbackProps {
-    error:Error,
-    resetErrorBoundary: () => void
+  error: Error
+  resetErrorBoundary: () => void
 }
 
-function ErrorFallback({error, resetErrorBoundary}:ErrorFallbackProps) {
-    return (
+function ErrorFallback ({ error, resetErrorBoundary }: ErrorFallbackProps) {
+  return (
       <div role="alert">
         <p>Something went wrong:</p>
         <pre>{error.message}</pre>
         <button onClick={resetErrorBoundary}>Try again</button>
       </div>
-    )
-  }
+  )
+}
 
-const MainWithErrorBoundary =  withErrorBoundary(Main, {
-    FallbackComponent: ErrorFallback,
-    onError(error,info){
-        console.error(error, info)
-    },
+const MainWithErrorBoundary = withErrorBoundary(Main, {
+  FallbackComponent: ErrorFallback,
+  onError (error, info) {
+    console.error(error, info)
+  }
 }
 )
 
@@ -47,7 +47,7 @@ root.render(
             </BrowserRouter>
         </QueryClientProvider>
     </React.StrictMode>
-);
+)
 
 /* fetch(globalConfigUrl)
     .then((res) => res.json())
@@ -69,5 +69,3 @@ root.render(
       </React.StrictMode>
   );
   }); */
-
-

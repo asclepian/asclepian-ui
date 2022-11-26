@@ -1,8 +1,7 @@
-import React from 'react'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 
 const Header: FunctionComponent = () => {
-    return (
+  return (
         <nav className="navbar navbar-secondary fixed-top bg-secondary flex-md-nowrap p-0">
             <a className="navbar-brand col-sm-3 col-md-1 col-lg-1 mr-0" href="#">
                 Company name
@@ -21,6 +20,6 @@ const Header: FunctionComponent = () => {
                 </li>
             </ul>
         </nav>
-    )
+  )
 }
 export default Header

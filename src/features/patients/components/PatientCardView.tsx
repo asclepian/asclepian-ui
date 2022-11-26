@@ -4,16 +4,15 @@ import { Link } from 'react-router-dom'
 import { Patient } from '../entities'
 
 interface ICollapseState {
-    collapseMenu: boolean
+  collapseMenu: boolean
 }
 
-function PatientCardView(props: { patientJSON: Patient }) {
-    let patient: Patient = props.patientJSON
-    const [collapseState, toggleCollapse] = useState<ICollapseState>({
-        collapseMenu: true,
-    })
-
-    return (
+function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
+  const patient: Patient = props.patientJSON
+  const [collapseState, toggleCollapse] = useState<ICollapseState>({
+    collapseMenu: true
+  })
+  return (
         <div
             style={{ width: '16rem', margin: '0.1rem' }}
             className={
@@ -34,14 +33,14 @@ function PatientCardView(props: { patientJSON: Patient }) {
                 <h5 className="card-title">
                     <a
                         onClick={() => {
-                            toggleCollapse((prevState) => {
-                                return {
-                                    ...prevState,
-                                    ...{
-                                        collapseMenu: !prevState.collapseMenu,
-                                    },
-                                }
-                            })
+                          toggleCollapse((prevState) => {
+                            return {
+                              ...prevState,
+                              ...{
+                                collapseMenu: !prevState.collapseMenu
+                              }
+                            }
+                          })
                         }}
                         href={'#' + patient.filenum}
                         role="button"
@@ -54,12 +53,12 @@ function PatientCardView(props: { patientJSON: Patient }) {
                 <h6
                     className={
                         'card-subtitle mb-2 bi ' +
-                        (patient.gender == 'M'
-                            ? 'bi-gender-male'
-                            : 'bi-gender-female')
+                        (patient.gender === 'M'
+                          ? 'bi-gender-male'
+                          : 'bi-gender-female')
                     }
                 >
-                    {patient.birthdate+"#"+patient.id}
+                    {patient.birthdate + '#' + patient.id.toString()}
                 </h6>
                 <Collapse in={!collapseState.collapseMenu}>
                     <div className="card-text">
@@ -71,12 +70,12 @@ function PatientCardView(props: { patientJSON: Patient }) {
                                 {patient.landline}
                             </li>
                             <li className="address bi bi-house-door">
-                                {patient.address} {patient.city}
+                                {patient.address + ' ' + patient.city}
                             </li>
                         </ul>
-                        <Link className="card-link" to={"/patients/edit/"+patient.filenum}>
+                        <Link className="card-link" to={'/patients/edit/' + patient.filenum}>
                             Editer
-                        </Link> 
+                        </Link>
                         <a className="card-link" href="#">
                             Sauvegarder
                         </a>
@@ -84,7 +83,7 @@ function PatientCardView(props: { patientJSON: Patient }) {
                 </Collapse>
             </div>
         </div>
-    )
+  )
 }
 
 export default PatientCardView

@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 
-const EncounerLookup:FunctionComponent = () => { return (<div>EncounerLookupComponent</div>)}
+const EncounerLookup: FunctionComponent = () => { return (<div>EncounerLookupComponent</div>) }
 
-export default EncounerLookup;
+export default EncounerLookup

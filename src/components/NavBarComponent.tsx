@@ -1,65 +1,62 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-
+import React, { FunctionComponent, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 enum EnumState {
-    Selected = 'selected',
-    Unselected = 'unselected',
+  Selected = 'selected',
+  Unselected = 'unselected',
 }
 
 interface NavigationItem {
-    text: string
-    link: string
-    id: string
+  text: string
+  link: string
+  id: string
 }
 
-let home: NavigationItem = { text: 'home', link: '/home', id: 'homeView' }
-let lookup: NavigationItem = {
-    text: 'rechercher',
-    link: '/lookupView',
-    id: 'lookupView',
+const home: NavigationItem = { text: 'home', link: '/home', id: 'homeView' }
+const lookup: NavigationItem = {
+  text: 'rechercher',
+  link: '/lookupView',
+  id: 'lookupView'
 }
-let patientList: NavigationItem = {
-    text: 'patients',
-    link: '/patients',
-    id: 'patientListView',
+const patientList: NavigationItem = {
+  text: 'patients',
+  link: '/patients',
+  id: 'patientListView'
 }
-let encounter: NavigationItem = {
-    text: 'enconter',
-    link: '/encounterView',
-    id: 'enconterView',
-}
-
-let queryPatient:NavigationItem = {
-    text: 'query patient',
-    link: '/patientViewQuery',
-    id: 'queryPatient',
+const encounter: NavigationItem = {
+  text: 'enconter',
+  link: '/encounterView',
+  id: 'enconterView'
 }
 
-let views = [ home, lookup, patientList, encounter, queryPatient];
+const queryPatient: NavigationItem = {
+  text: 'query patient',
+  link: '/patientViewQuery',
+  id: 'queryPatient'
+}
 
-function className(
-    navItem: NavigationItem,
-    currentSelection: NavigationItem | undefined
+const views = [home, lookup, patientList, encounter, queryPatient]
+
+function className (
+  navItem: NavigationItem,
+  currentSelection: NavigationItem | undefined
 ): string {
-    if (navItem == currentSelection) return EnumState.Selected + ' nav-item'
-    else return 'nav-item'
+  if (navItem === currentSelection) return EnumState.Selected + ' nav-item'
+  else return 'nav-item'
 }
 
 const NavBar: FunctionComponent = () => {
-    let [selection, setSelection] = useState<NavigationItem>()
-    return (
+  const [selection, setSelection] = useState<NavigationItem>()
+  return (
         <nav className="col-md-1 d-none d-md-block sidebar bg-light">
             <div className="sidebar-sticky">
                 <ul className="nav flex-column">
                     {views.map((element) => {
-                        return (
+                      return (
                             <li
                                 className={className(element, selection)}
                                 onClick={() => {
-                                    setSelection(element)
+                                  setSelection(element)
                                 }}
                                 key = {element.id}
                             >
@@ -67,12 +64,12 @@ const NavBar: FunctionComponent = () => {
                                     {element.text}
                                 </NavLink>
                             </li>
-                        )
+                      )
                     })}
                 </ul>
                 <ul className="nav flex-column mb-2" id="openedItemsMenu"></ul>
             </div>
         </nav>
-    )
+  )
 }
 export default NavBar

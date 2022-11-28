@@ -26,7 +26,7 @@ const Main: FunctionComponent = () => (
                         <Route index element={<Home />} />
                         <Route path="/home" element={<Home />} />
 
-                        <Route path="patients" element={<PatientListView />}>
+                        <Route path="patients">
                             <Route index element={<PatientListView />} />
                             <Route
                                 path=":filenum"

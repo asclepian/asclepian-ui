@@ -67,13 +67,15 @@ function PatientFormLogic ({ defaultValues, onSubmit, isNew }: Props) {
     resolver: yupResolver(PatientFormSchema)
   })
 
+  // console.log(`loading form logic with ${JSON.stringify(defaultValues)}`)
+
   const handleSubmit = async (data: Patient) => {
-    // console.log('received data in logic' + data)
+    // console.log(`handliing submit witth data ${JSON.stringify(data)}`)
     await onSubmit(data)
       .then(() => form.reset(data))
       .catch((err) => console.error(err))
   }
-
+  // console.log(`calling form view with form ${JSON.stringify(form.getValues())}`)
   return <PatientFormView form={form} onSubmit={handleSubmit} isNew={isNew} />
 }
 

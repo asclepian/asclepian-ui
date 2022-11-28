@@ -32,7 +32,9 @@ async function getAllPatients (): Promise<PatientListPaginatedHAL> {
 }
 
 async function getPatient (filenum: string): Promise<Patient> {
-  const { data } = await axios.get<Patient>(globalConfig.config.apiUrl + '/patients/' + filenum)
+  const reqURL = globalConfig.config.apiUrl + '/patients/' + filenum
+  console.log(`fetching patient with URL: ${reqURL}`)
+  const { data } = await axios.get<Patient>(reqURL)
   return data
 }
 

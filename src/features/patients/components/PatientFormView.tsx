@@ -1,6 +1,7 @@
 import React, { KeyboardEvent } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { Patient } from '../entities'
+import usePatientStore from '../PatientStore'
 
 interface Props {
   form: UseFormReturn<Patient>
@@ -11,6 +12,7 @@ interface Props {
 function PatientFormView ({ form, onSubmit, isNew }: Props) {
   const { formState, register, handleSubmit } = form
   const { errors, isSubmitting } = formState
+  const removePatient = usePatientStore((state) => (state.removePatient))
   function checkKeyDown (e: KeyboardEvent) {
     if (e.code === 'Enter') e.preventDefault()
   };
@@ -233,11 +235,17 @@ function PatientFormView ({ form, onSubmit, isNew }: Props) {
                 <div>{errors?.job?.message?.toString()}</div>
             </div>
 
-            {/* ... more fields here */}
-
-            <button className='mb-3 col-12 btn btn-primary text-white' disabled={isSubmitting} type="submit">
-                Submit
+            <div className="d-flex justify-content-between">
+            <button className='mb-3 col-8 btn btn-primary text-white' disabled={isSubmitting} type="submit">
+                Enregistrer
             </button>
+            {
+            // FIXME: cancelling should send to another view
+            }
+            <button className='mb-3 col-3 btn btn-warning text-white' disabled={isSubmitting} type="button" onClick={() => removePatient(form.getValues())}>
+                Annuler
+            </button>
+            </div>
         </form>
   )
 }

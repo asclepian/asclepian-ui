@@ -5,7 +5,13 @@ import { useQuery } from 'react-query'
 import { Patient } from '../entities'
 import { getPatient } from '../services'
 
-function PatientLoader (props: { filenum: string }) {
+/**
+ * loads a a Patient from the APi using the provided filenum either via the props if not via the useParams
+ * @param props the filnum of the patiient
+ * @returns the PatientCardView popuulateds by the loaded patient
+ */
+
+function PatientLoader (props: { filenum: string }): JSX.Element {
   const filenum = (props.filenum.length === 0) ? useParams().filenum : props.filenum
   if (typeof filenum === 'undefined') {
     // FIXME: handle erro fallback

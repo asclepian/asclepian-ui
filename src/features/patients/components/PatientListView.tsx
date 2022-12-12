@@ -3,13 +3,14 @@ import PatientCardView from './PatientCardView'
 import { useQuery } from 'react-query'
 import { Patient } from '../entities'
 import { getAllPatients, PatientListPaginatedHAL } from '../services'
+import usePatientStore from '../PatientStore'
 
 function PatientListView (): JSX.Element {
   const { isLoading, error, data } = useQuery<PatientListPaginatedHAL, Error>(
     'allPatientsList',
     getAllPatients
   )
-
+  usePatientStore.subscribe(console.log)
   if (isLoading) {
     console.log('Loading...')
     return <div className="row p-1">Loading...</div>

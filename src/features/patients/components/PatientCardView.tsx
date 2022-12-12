@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Collapse from 'react-bootstrap/Collapse'
 import { Link } from 'react-router-dom'
 import { Patient } from '../entities'
+import usePatientStore from '../PatientStore'
 
 interface ICollapseState {
   collapseMenu: boolean
@@ -9,6 +10,7 @@ interface ICollapseState {
 
 function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
   const patient: Patient = props.patientJSON
+  const addPatientEdit = usePatientStore((state) => state.addPatient)
   const [collapseState, toggleCollapse] = useState<ICollapseState>({
     collapseMenu: true
   })
@@ -73,7 +75,7 @@ function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
                                 {patient.address + ' ' + patient.city}
                             </li>
                         </ul>
-                        <Link className="card-link" to={'/patients/edit/' + patient.filenum}>
+                        <Link className="card-link" to={'/patients/edit/' + patient.filenum} onClick={() => addPatientEdit(patient)}>
                             Editer
                         </Link>
                         <a className="card-link" href="#">

@@ -1,5 +1,6 @@
 import React, { KeyboardEvent } from 'react'
 import { UseFormReturn } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { Patient } from '../entities'
 import usePatientStore from '../PatientStore'
 
@@ -9,11 +10,12 @@ interface Props {
   isNew: boolean
 }
 
-function PatientFormView ({ form, onSubmit, isNew }: Props) {
+function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
   const { formState, register, handleSubmit } = form
   const { errors, isSubmitting } = formState
   const removePatient = usePatientStore((state) => (state.removePatient))
-  function checkKeyDown (e: KeyboardEvent) {
+  const navigate = useNavigate()
+  function checkKeyDown (e: KeyboardEvent): void {
     if (e.code === 'Enter') e.preventDefault()
   };
   //   console.log(`loading form view with ${JSON.stringify(form.getValues())}`)
@@ -242,7 +244,10 @@ function PatientFormView ({ form, onSubmit, isNew }: Props) {
             {
             // FIXME: cancelling should send to another view
             }
-            <button className='mb-3 col-3 btn btn-warning text-white' disabled={isSubmitting} type="button" onClick={() => removePatient(form.getValues())}>
+            <button className='mb-3 col-3 btn btn-warning text-white' disabled={isSubmitting} type="button" onClick={() => {
+              removePatient(form.getValues())
+              navigate('/patients')
+            }}>
                 Annuler
             </button>
             </div>

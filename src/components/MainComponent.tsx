@@ -34,7 +34,7 @@ const Main: FunctionComponent = () => (
                             />
                             <Route
                                 path="edit/:filenum"
-                                element={<PatientEditView />}
+                                element={<PatientEditView/>}
                             />
                         </Route>
 

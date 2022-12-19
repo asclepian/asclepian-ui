@@ -4,9 +4,9 @@ import PatientAPIWrappper from './PatientAPIWrapper'
 import { getPatient } from '../services'
 import { Patient } from '../entities'
 
-interface Props { patient: Patient}
+interface Props { patient?: Patient}
 
-function PatientEditView (props: Props | undefined): JSX.Element {
+function PatientEditView (props: Props): JSX.Element {
   const { filenum } = useParams()
   const [data, setData] = useState<Patient>()
   console.log('editing patient ' + ((typeof filenum === 'undefined') ? 'with no param' : filenum))

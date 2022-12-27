@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PatientCardView from './PatientCardView'
 import { useQuery } from 'react-query'
 import { Patient } from '../entities'
@@ -10,7 +10,8 @@ function PatientListView (): JSX.Element {
     'allPatientsList',
     getAllPatients
   )
-  usePatientStore.subscribe(console.log)
+  useEffect(() => usePatientStore.subscribe(console.log), [])
+
   if (isLoading) {
     console.log('Loading...')
     return <div className="row p-1">Loading...</div>

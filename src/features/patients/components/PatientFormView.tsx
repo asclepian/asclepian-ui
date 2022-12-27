@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react'
+import React, { KeyboardEvent, useEffect } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { Patient } from '../entities'
@@ -14,6 +14,10 @@ function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
   const { formState, register, handleSubmit } = form
   const { errors, isSubmitting } = formState
   const removePatient = usePatientStore((state) => (state.removePatient))
+  const patchPatient = usePatientStore((state) => (state.patchPatient))
+  useEffect(() => {
+    return () => patchPatient(form.getValues())
+  }, [])
   const navigate = useNavigate()
   function checkKeyDown (e: KeyboardEvent): void {
     if (e.code === 'Enter') e.preventDefault()

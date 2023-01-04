@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Collapse from 'react-bootstrap/Collapse'
+import Card from 'react-bootstrap/Card'
 import { Link } from 'react-router-dom'
 import { Patient } from '../entities'
 import usePatientStore from '../PatientStore'

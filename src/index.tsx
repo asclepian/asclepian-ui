@@ -21,7 +21,7 @@ interface ErrorFallbackProps {
   resetErrorBoundary: () => void
 }
 
-function ErrorFallback ({ error, resetErrorBoundary }: ErrorFallbackProps) {
+function ErrorFallback ({ error, resetErrorBoundary }: ErrorFallbackProps): JSX.Element {
   return (
       <div role="alert">
         <p>Something went wrong:</p>
@@ -48,24 +48,3 @@ root.render(
         </QueryClientProvider>
     </React.StrictMode>
 )
-
-/* fetch(globalConfigUrl)
-    .then((res) => res.json())
-    .then((result) => {
-
-        globalConfig.config = result;
-        console.log("update globalConfig ApiURL: "+globalConfig.config.apiUrl)
-    }).catch(e => {
-        console.error("Failed to update globalConfig"+e);
-      return <p style={{color: "red", textAlign: "center"}}>Error while fetching global config</p>;
-  }).then(()=>{
-    root.render(
-      <React.StrictMode>
-          <QueryClientProvider client={queryClient}>
-              <BrowserRouter>
-                  <Main/>
-              </BrowserRouter>
-          </QueryClientProvider>
-      </React.StrictMode>
-  );
-  }); */

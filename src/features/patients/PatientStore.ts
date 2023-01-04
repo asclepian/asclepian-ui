@@ -19,18 +19,18 @@ const usePatientStore = create<PatientState & PatientAction>()(
       immer<PatientState & PatientAction>((set) => ({
         openEdits: [],
         addPatient: (p: Patient) => set((state) => {
-          console.log(`adding ${JSON.stringify(p)} to the current state ${JSON.stringify(state.openEdits)}`)
+          // console.log(`adding ${JSON.stringify(p)} to the current state ${JSON.stringify(state.openEdits)}`)
           const index = state.openEdits.findIndex((value: Patient) => { return value.filenum === p.filenum })
           if (index !== -1) { return state }
           state.openEdits.push(p)
           return state
         }),
         removePatient: (p) => set((state) => {
-          console.log(`removing ${JSON.stringify(p)} from current state ${JSON.stringify(state.openEdits)}`)
+          // console.log(`removing ${JSON.stringify(p)} from current state ${JSON.stringify(state.openEdits)}`)
           return { openEdits: state.openEdits.filter((patient: Patient) => { return p.filenum !== patient.filenum }) }
         }),
         patchPatient: (p) => set((state) => {
-          console.log(`patching  ${JSON.stringify(p)} in the current state ${JSON.stringify(state.openEdits)}`)
+          // console.log(`patching  ${JSON.stringify(p)} in the current state ${JSON.stringify(state.openEdits)}`)
           const index = state.openEdits.findIndex((value: Patient) => { return value.filenum === p.filenum })
           if (index === -1) { return state }
           state.openEdits[index] = p

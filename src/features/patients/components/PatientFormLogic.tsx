@@ -60,7 +60,7 @@ interface Props {
   isNew: boolean
 }
 
-function PatientFormLogic ({ defaultValues, onSubmit, isNew }: Props) {
+function PatientFormLogic ({ defaultValues, onSubmit, isNew }: Props): JSX.Element {
   const form = useForm<Patient>({
     mode: 'onSubmit',
     defaultValues,
@@ -69,7 +69,7 @@ function PatientFormLogic ({ defaultValues, onSubmit, isNew }: Props) {
 
   // console.log(`loading form logic with ${JSON.stringify(defaultValues)}`)
 
-  const handleSubmit = async (data: Patient) => {
+  const handleSubmit = async (data: Patient): Promise<void> => {
     // console.log(`handliing submit witth data ${JSON.stringify(data)}`)
     await onSubmit(data)
       .then(() => form.reset(data))

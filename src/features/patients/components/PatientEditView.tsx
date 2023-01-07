@@ -17,7 +17,7 @@ function PatientEditView (props: Props): JSX.Element {
   const openEdits = usePatientStore(state => state.openEdits)
   const openedPatient = openEdits.filter(p => { return p.filenum === filenum })
   if (openedPatient.length !== 0) {
-    console.log(`found patient already opened: ${JSON.stringify(openedPatient[0])}`)
+    // console.log(`found patient already opened: ${JSON.stringify(openedPatient[0])}`)
     return <PatientAPIWrappper patient={openedPatient[0]} />
   }
   // else load it from API
@@ -25,7 +25,7 @@ function PatientEditView (props: Props): JSX.Element {
   useEffect(() => {
     getPatient(filenum).then((resp) => setData(resp)).catch((reason) => { console.error(reason) })
   }, [])
-  if (typeof data === 'undefined') return <div>loading data for patient</div> // <PatientAPIWrappper patient={undefined} /> // <<div>loading data for patient</div>
+  if (typeof data === 'undefined') return <div>loading data for patient</div>
   // console.log(`editing form with ${JSON.stringify(data)}`)
   return <PatientAPIWrappper patient={data} />
 }

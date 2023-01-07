@@ -17,7 +17,7 @@ interface PatientHAL extends Patient {
 // FIXME: switch to axios
 async function updatePatient (p: Patient): Promise<Response> {
   return await fetch(globalConfig.config.apiUrl + '/patients/' + p.filenum, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'

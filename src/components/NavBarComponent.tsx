@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-enum EnumState {
+const enum EnumState {
   Selected = 'selected',
   Unselected = 'unselected',
 }

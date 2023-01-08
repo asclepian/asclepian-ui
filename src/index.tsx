@@ -2,12 +2,8 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap-icons/font/bootstrap-icons.css'
 import Main from './components/MainComponent'
-import './app.scss'
 import './index.css'
-import './dashboard.css'
 import { withErrorBoundary } from 'react-error-boundary'
 
 const queryClient = new QueryClient()

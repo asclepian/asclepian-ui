@@ -22,7 +22,7 @@ function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
   function checkKeyDown (e: KeyboardEvent): void {
     if (e.code === 'Enter') e.preventDefault()
   };
-//   console.log(`opened form view with ${JSON.stringify(form.getValues())}`)
+  //   console.log(`opened form view with ${JSON.stringify(form.getValues())}`)
   return (
         <form
             className="p-1 col-sm-8"

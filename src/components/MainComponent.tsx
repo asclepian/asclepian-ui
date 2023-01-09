@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import EncounterView from './EncounterViewComponent'
 import Header from './HeaderComponent'
 import Home from './HomeComponent'
-import NavBar from './NavBarComponent'
 import {
   PatientEditView,
   PatientListView,
@@ -13,11 +12,10 @@ import {
 import LookupView from './LookupViewComponent'
 
 const Main: FunctionComponent = () => (
-    <div className="app-container ">
+    <div className="antialiased text-stone-600 bg-stone-100">
         <Header />
         <div className="container-fluid">
             <div className="row">
-                <NavBar />
                 <main
                     className="col-md-11 ms-sm-auto col-lg-11 px-2"
                     role="main"

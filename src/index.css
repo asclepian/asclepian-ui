@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: handfont;
+  src: url(fonts/elegant_ink.ttf);
+}

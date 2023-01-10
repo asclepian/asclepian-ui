@@ -12,7 +12,7 @@ import {
 import LookupView from './LookupViewComponent'
 
 const Main: FunctionComponent = () => (
-    <div className="antialiased text-stone-600 bg-stone-100">
+    <div className="antialiased text-dark bg-light">
         <Header />
         <div className="container-fluid">
             <div className="row">

@@ -1,24 +1,15 @@
 import React, { useState } from 'react'
-import Collapse from 'react-bootstrap/Collapse'
 import { Link } from 'react-router-dom'
 import { Patient } from '../entities'
 import usePatientStore from '../PatientStore'
 
-interface ICollapseState {
-  collapseMenu: boolean
-}
-
 function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
   const patient: Patient = props.patientJSON
   const addPatientEdit = usePatientStore((state) => state.addPatient)
-  const [collapseState, toggleCollapse] = useState<ICollapseState>({
-    collapseMenu: true
-  })
   return (
         <div
-            style={{ width: '16rem', margin: '0.1rem' }}
             className={
-                'patient-container px-1 card h-100 ' +
+                'border-black border-2 p-1 w-64 h-auto ' +
                 (patient.active ? '' : ' text-muted')
             }
             id={'patient' + patient.filenum}
@@ -33,24 +24,7 @@ function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
                     {patient.insured ? 'A' : ''}
                 </span>
                 <h5 className="card-title">
-                    <a
-                        onClick={() => {
-                          toggleCollapse((prevState) => {
-                            return {
-                              ...prevState,
-                              ...{
-                                collapseMenu: !prevState.collapseMenu
-                              }
-                            }
-                          })
-                        }}
-                        href={'#' + patient.filenum}
-                        role="button"
-                        aria-expanded="false"
-                        aria-controls={patient.filenum + '_'}
-                    >
-                        {patient.lastname + ' ' + patient.firstname}
-                    </a>
+                    {patient.lastname + ' ' + patient.firstname}
                 </h5>
                 <h6
                     className={
@@ -62,27 +36,27 @@ function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
                 >
                     {patient.birthdate + '#' + patient.id.toString()}
                 </h6>
-                <Collapse in={!collapseState.collapseMenu}>
-                    <div className="card-text">
-                        <ul>
-                            <li className="mobile bi bi-phone">
-                                {patient.mobile}
-                            </li>
-                            <li className="landline bi bi-telephone">
-                                {patient.landline}
-                            </li>
-                            <li className="address bi bi-house-door">
-                                {patient.address + ' ' + patient.city}
-                            </li>
-                        </ul>
-                        <Link className="card-link" to={'/patients/edit/' + patient.filenum} onClick={() => addPatientEdit(patient)}>
-                            Editer
-                        </Link>
-                        <a className="card-link" href="#">
-                            Sauvegarder
-                        </a>
-                    </div>
-                </Collapse>
+                <div className="card-text">
+                    <ul>
+                        <li className="mobile bi bi-phone">{patient.mobile}</li>
+                        <li className="landline bi bi-telephone">
+                            {patient.landline}
+                        </li>
+                        <li className="address bi bi-house-door">
+                            {patient.address + ' ' + patient.city}
+                        </li>
+                    </ul>
+                    <Link
+                        className="card-link"
+                        to={'/patients/edit/' + patient.filenum}
+                        onClick={() => addPatientEdit(patient)}
+                    >
+                        Editer
+                    </Link>
+                    <a className="card-link" href="#">
+                        Sauvegarder
+                    </a>
+                </div>
             </div>
         </div>
   )

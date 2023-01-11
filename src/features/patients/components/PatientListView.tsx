@@ -25,7 +25,7 @@ function PatientListView (): JSX.Element {
   console.log({ data })
 
   return (
-        <div className="row p-1">
+        <div className="flex flex-wrap gap-1 p-1">
             {
                 (typeof data !== 'undefined')
                   ? data._embedded.patientList.map((p) => (

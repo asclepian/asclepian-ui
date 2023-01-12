@@ -19,26 +19,26 @@ const patientList: NavigationItem = {
   id: 'patientListView'
 }
 const encounter: NavigationItem = {
-  text: 'enconter',
+  text: 'encounter',
   link: '/encounterView',
   id: 'enconterView'
 }
 
-const queryPatient: NavigationItem = {
-  text: 'query patient',
-  link: '/patientViewQuery',
-  id: 'queryPatient'
+const openedPatientList: NavigationItem = {
+  text: 'Dossier Ouverts',
+  link: '/patients',
+  id: 'openedPatientListView'
 }
 
 function className (
   navItem: NavigationItem,
   currentSelection: NavigationItem | undefined
 ): string {
-  if (navItem === currentSelection) return 'text-secondary bg-dominant border-dominant px-3 rounded-full border-2 hover:text-accent'
+  if (navItem === currentSelection) return 'text-secondary bg-dominant border-dominant px-3 rounded-full border-2 hover:bg-light'
   else return 'text-dominant px-3 rounded-full border-secondary border-2 hover:border-dominant hover:border-2'
 }
 
-const views = [home, lookup, patientList, encounter, queryPatient]
+const views = [home, lookup, openedPatientList, patientList, encounter]
 
 const Header: FunctionComponent = () => {
   const [selection, setSelection] = useState<NavigationItem>()

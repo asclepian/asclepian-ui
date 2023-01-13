@@ -40,7 +40,7 @@ function className (
   navItem: NavigationItem,
   currentSelection: NavigationItem | undefined
 ): string {
-  if (navItem === currentSelection) return 'text-secondary bg-dominant border-dominant px-3 rounded-full border-2 hover:text-accent'
+  if (navItem === currentSelection) return 'text-secondary bg-dominant border-dominant px-3 rounded-full border-2 hover:bg-light'
   else return 'text-dominant px-3 rounded-full border-secondary border-2 hover:border-dominant hover:border-2'
 }
 

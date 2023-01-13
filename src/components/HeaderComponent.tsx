@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import PatientOpenedList from '../features/patients/components/PatientOpenedList'
 
 interface NavigationItem {
   text: string
@@ -18,17 +19,22 @@ const patientList: NavigationItem = {
   link: '/patients',
   id: 'patientListView'
 }
-const encounter: NavigationItem = {
-  text: 'enconter',
-  link: '/encounterView',
-  id: 'enconterView'
+const openedatientList: NavigationItem = {
+  text: '',
+  link: '',
+  id: 'openedPatientListView'
 }
+// const encounter: NavigationItem = {
+//   text: 'enconter',
+//   link: '/encounterView',
+//   id: 'enconterView'
+// }
 
-const queryPatient: NavigationItem = {
-  text: 'query patient',
-  link: '/patientViewQuery',
-  id: 'queryPatient'
-}
+// const queryPatient: NavigationItem = {
+//   text: 'query patient',
+//   link: '/patientViewQuery',
+//   id: 'queryPatient'
+// }
 
 function className (
   navItem: NavigationItem,
@@ -38,7 +44,7 @@ function className (
   else return 'text-dominant px-3 rounded-full border-secondary border-2 hover:border-dominant hover:border-2'
 }
 
-const views = [home, lookup, patientList, encounter, queryPatient]
+const views = [home, lookup, patientList]
 
 const Header: FunctionComponent = () => {
   const [selection, setSelection] = useState<NavigationItem>()
@@ -46,7 +52,7 @@ const Header: FunctionComponent = () => {
         // navbar navbar-expand-lg navbar-secondary fixed-top bg-secondary flex-md-nowrap p-0
         <div className="sticky top-0 z-40 w-full backdrop-blur flex-none bg-secondary">
             <div className="max-w-8xl max-auto">
-                <div className="py-4 border-b border-dark/10 lg:px-8 lg:border-0">
+                <div className="py-1 border-b border-dark/10 lg:px-2 lg:border-0">
                     <div className="relative flex items-center">
                     <a
                         className="text-dominant rounded-full px-2 mr-3 flex-none font-handfont text-5xl font-bold"
@@ -54,7 +60,7 @@ const Header: FunctionComponent = () => {
                     >
                         Asclepian
                     </a>
-                    <div className="relative hidden lg:flex items-center ml-auto ">
+                    <div className="relative flex items-center m-auto ">
                       <nav className="text-sm leading-6 font-semibold text-dark">
                       <ul className="flex space-x-0">
                             {views.map((element) => {
@@ -78,6 +84,9 @@ const Header: FunctionComponent = () => {
                                     </li>
                               )
                             })}
+                            <li>
+                              <PatientOpenedList/>
+                            </li>
                         </ul>
                       </nav>
                     </div>

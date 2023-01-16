@@ -25,18 +25,17 @@ function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
   //   console.log(`opened form view with ${JSON.stringify(form.getValues())}`)
   return (
         <form
-            className="p-1 col-sm-8"
+            className="p-1 flex-col flex-grow"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={handleSubmit(onSubmit, (erros) => {
               console.error(erros)
             })}
             onKeyDown={(e) => checkKeyDown(e)}
         >
-            <div className="mb-3 row">
+            <div className="mt-1 flex">
                 <label htmlFor="filenum" className="col-sm-3 col-form-label">
                     Numero De Dossier
                 </label>
-                <div className="col-sm-9 py-12">
                     <input
                         id="filenum"
                         className="shadow-sm form-control"
@@ -45,7 +44,6 @@ function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
                         readOnly={!isNew}
                         {...register('filenum')}
                     />
-                </div>
                 <div>{errors?.filenum?.message?.toString()}</div>
             </div>
             <div className="mb-3 row">
@@ -242,13 +240,13 @@ function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
             </div>
 
             <div className="d-flex justify-content-between">
-            <button className='mb-3 col-8 btn btn-primary text-white' disabled={isSubmitting} type="submit">
+            <button className='bg-secondary text-white' disabled={isSubmitting} type="submit">
                 Enregistrer
             </button>
             {
             // FIXME: cancelling should send to another view
             }
-            <button className='mb-3 col-3 btn btn-warning text-white' disabled={isSubmitting} type="button" onClick={() => {
+            <button className='bg-secondary text-white' disabled={isSubmitting} type="button" onClick={() => {
               removePatient(form.getValues())
               navigate('/patients')
             }}>

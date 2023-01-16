@@ -19,11 +19,7 @@ const patientList: NavigationItem = {
   link: '/patients',
   id: 'patientListView'
 }
-const openedatientList: NavigationItem = {
-  text: '',
-  link: '',
-  id: 'openedPatientListView'
-}
+
 // const encounter: NavigationItem = {
 //   text: 'enconter',
 //   link: '/encounterView',

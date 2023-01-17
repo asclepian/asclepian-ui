@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, useEffect } from 'react'
-import { UseFormReturn } from 'react-hook-form'
+import { UseFormRegister, UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { Patient } from '../entities'
 import usePatientStore from '../PatientStore'
@@ -8,6 +8,31 @@ interface Props {
   form: UseFormReturn<Patient>
   onSubmit: (data: Patient) => any
   isNew: boolean
+}
+interface InputParams {
+  label: string
+  id: string
+  type?: string
+  placeholder?: string
+  readonly?: boolean
+
+}
+
+const generalInput = (params: InputParams, register: UseFormRegister<Patient>, errors: (() => string) | undefined): JSX.Element => {
+  return (<div className="rounded-sm transition duration-150 ease-in-out focus-within:border-secondary border-gray-gray4 bg-light shadow-md">
+    <label htmlFor="filenum" className="text-xs text-dark placeholder-gray-gray4 px-2 pt-1.5">
+        Numero De Dossier
+    </label>
+        <input
+            id={params.id}
+            className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-light"
+            type={typeof params.type === 'undefined' ? 'text' : params.type}
+            placeholder= {typeof params.placeholder === 'undefined' ? params.label : params.placeholder}
+            readOnly= {typeof params.readonly === 'undefined' ? false : params.readonly}
+            {...register('filenum')}
+        />
+    <div>{typeof errors === 'undefined' ? '' : errors() }</div>
+</div>)
 }
 
 function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
@@ -25,27 +50,14 @@ function PatientFormView ({ form, onSubmit, isNew }: Props): JSX.Element {
   //   console.log(`opened form view with ${JSON.stringify(form.getValues())}`)
   return (
         <form
-            className="p-1 flex-col flex-grow"
+            className="p-2 bg-dominant"
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onSubmit={handleSubmit(onSubmit, (erros) => {
               console.error(erros)
             })}
             onKeyDown={(e) => checkKeyDown(e)}
         >
-            <div className="mt-1 flex">
-                <label htmlFor="filenum" className="col-sm-3 col-form-label">
-                    Numero De Dossier
-                </label>
-                    <input
-                        id="filenum"
-                        className="shadow-sm form-control"
-                        type="text"
-                        placeholder="Numero de dossier"
-                        readOnly={!isNew}
-                        {...register('filenum')}
-                    />
-                <div>{errors?.filenum?.message?.toString()}</div>
-            </div>
+            {generalInput({ label: 'Numero de Dossier', id: 'filenum', readonly: false }, register, errors?.filenum?.message?.toString)}
             <div className="mb-3 row">
                 <label htmlFor="lastname" className="col-sm-3 col-form-label">
                     Nom de famille

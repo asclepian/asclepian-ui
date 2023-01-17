@@ -11,7 +11,7 @@ module.exports = {
         dominantdark: '#156D62',
         secondary: '#0045d9', // Blue #0045d9  purple #453C67
         accent: '#46c2cb',
-        light: '#F7FEFD',
+        light: '#f7fefd',
         dark: '#072521',
         sucess: '#00A322',
         danger: '#A32200'

@@ -13,17 +13,13 @@ function PatientListView (): JSX.Element {
   useEffect(() => usePatientStore.subscribe(console.log), [])
 
   if (isLoading) {
-    console.log('Loading...')
     return <div className="row p-1">Loading...</div>
   }
   if ((error != null) || typeof data === 'undefined') {
     const errorMessage = error instanceof Error ? error.message : 'error ' + String(error)
-    console.log('An error has occurred: ' + errorMessage)
+    console.error('An error has occurred: ' + errorMessage)
     return <div className="row p-1"> {errorMessage}</div>
   }
-  console.log('received data')
-  console.log({ data })
-
   return (
         <div className="flex flex-wrap gap-1 p-1">
             {

@@ -9,7 +9,7 @@ interface Patient {
   active: boolean
   mobile: string
   email: string
-  gender: string
+  gender: 'f' | 'm' | 'F' | 'M'
   job: string
   birthdate: string
   address: string
@@ -17,7 +17,15 @@ interface Patient {
   postalcode: number
   createdby: number
   createdon: Date
-  _links?: any
 }
 
-export type { Patient }
+interface PatientAllergy {
+  type: 'allergy' | 'intolerance'
+  category: 'food' | 'medication' | 'environment' | 'biologic'
+  criticality: 'low' | 'high' | 'unable-to-assess'
+  substance: string
+  onset: string
+  comment: string
+}
+
+export type { Patient, PatientAllergy }

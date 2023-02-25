@@ -20,18 +20,6 @@ const patientList: NavigationItem = {
   id: 'patientListView'
 }
 
-// const encounter: NavigationItem = {
-//   text: 'enconter',
-//   link: '/encounterView',
-//   id: 'enconterView'
-// }
-
-// const queryPatient: NavigationItem = {
-//   text: 'query patient',
-//   link: '/patientViewQuery',
-//   id: 'queryPatient'
-// }
-
 function className (
   navItem: NavigationItem,
   currentSelection: NavigationItem | undefined
@@ -46,19 +34,19 @@ const Header: FunctionComponent = () => {
   const [selection, setSelection] = useState<NavigationItem>()
   return (
         // navbar navbar-expand-lg navbar-secondary fixed-top bg-secondary flex-md-nowrap p-0
-        <div className="sticky top-0 z-40 w-full backdrop-blur flex-none bg-secondary">
-            <div className="max-w-8xl max-auto">
-                <div className="py-1 border-b border-dark/10 lg:px-2 lg:border-0">
-                    <div className="relative flex items-center">
+        <div className="sticky top-0 z-40 h-screen w-fit backdrop-blur bg-secondary rounded-r-3xl flex">
+            <div className="max-h-full max-w-fit">
+                <div className="py-1 border-b border-dark/10 lg:px-2 lg:border-0 flex flex-col">
+                    <div className="relative flex flex-col items-center ml-0 w-32">
                     <a
-                        className="text-dominant rounded-full px-2 mr-3 flex-none font-handfont text-5xl font-bold"
+                        className="text-dominant font-handfont text-5xl font-bold mb-24 ml-0"
                         href="#"
                     >
                         Asclepian
                     </a>
-                    <div className="relative flex items-center m-auto ">
+                    <div className="relative items-center ml-0 ">
                       <nav className="text-sm leading-6 font-semibold text-dark">
-                      <ul className="flex space-x-0">
+                      <ul className="space-x-0">
                             {views.map((element) => {
                               return (
                                     <li

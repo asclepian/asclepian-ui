@@ -6,13 +6,15 @@ import { getAllPatients, PatientListPaginatedHAL } from '../services'
 import usePatientStore from '../PatientStore'
 
 function PatientListView (): JSX.Element {
+  console.log('PatientListView entered function, running useQuery hook')
   const { isLoading, error, data } = useQuery<PatientListPaginatedHAL, Error>(
     'allPatientsList',
     getAllPatients
   )
   useEffect(() => usePatientStore.subscribe(console.log), [])
-
+  console.log('PatientListView testing useQuery return value')
   if (isLoading) {
+    console.log('PatientListView Loading ...')
     return <div className="row p-1">Loading...</div>
   }
   if ((error != null) || typeof data === 'undefined') {
@@ -20,6 +22,7 @@ function PatientListView (): JSX.Element {
     console.error('An error has occurred: ' + errorMessage)
     return <div className="row p-1"> {errorMessage}</div>
   }
+  console.log('PatientListView showing data')
   return (
         <div className="flex flex-wrap gap-1 p-1">
             {

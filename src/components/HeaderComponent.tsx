@@ -54,12 +54,12 @@ const Header: FunctionComponent = () => {
                                           element,
                                           selection
                                         )}
-                                        onClick={() => {
-                                          setSelection(element)
-                                        }}
                                         key={element.id}
                                     >
                                         <NavLink
+                                        onClick={() => {
+                                          setSelection(element)
+                                        }}
                                             className="nav-link"
                                             to={element.link}
                                         >

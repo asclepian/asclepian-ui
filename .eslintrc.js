@@ -17,6 +17,6 @@ module.exports = {
     'react'
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'warn'
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 }

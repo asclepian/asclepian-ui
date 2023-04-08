@@ -1,8 +1,6 @@
 import PatientCardView from './components/PatientCardView'
-import PatientEditView from './components/PatientEditView'
-import PatientFormLogic from './components/PatientFormLogic'
-import PatientFormView from './components/PatientFormView'
+import { PatientEditForm } from './components/PatientEditForm'
 import PatientListView from './components/PatientListView'
 import PatientLoader from './components/PatientLoader'
 
-export { PatientCardView, PatientListView, PatientFormLogic, PatientFormView, PatientEditView, PatientLoader }
+export { PatientCardView, PatientListView, PatientEditForm, PatientLoader }

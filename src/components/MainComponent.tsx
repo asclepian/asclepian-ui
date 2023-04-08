@@ -5,11 +5,11 @@ import EncounterView from './EncounterViewComponent'
 import Header from './HeaderComponent'
 import Home from './HomeComponent'
 import {
-  PatientEditView,
   PatientListView,
   PatientLoader
 } from '../features/patients'
 import LookupView from './LookupViewComponent'
+import { PatientEdit } from '../features/patients/components/PatientEdit'
 
 const Main: FunctionComponent = () => (
     <div className="antialiased text-dark bg-light flex flex-row">
@@ -32,7 +32,7 @@ const Main: FunctionComponent = () => (
                             />
                             <Route
                                 path="edit/:filenum"
-                                element={<PatientEditView/>}
+                                element={<PatientEdit/>}
                             />
                         </Route>
 

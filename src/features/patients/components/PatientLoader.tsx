@@ -1,9 +1,9 @@
 import React from 'react'
-import PatientCardView from './PatientCardView'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { Patient } from '../entities'
 import { getPatient } from '../services'
+import PatientView from './PatientView'
 
 /**
  * loads a a Patient from the APi using the provided filenum either via the props if not via the useParams
@@ -37,6 +37,6 @@ function PatientLoader (props: { filenum: string }): JSX.Element {
     // console.error('data received is undefined')
     return <div className="row p-1">{'data received is undefined'}</div>
   }
-  return <PatientCardView key={data.filenum} patientJSON={data} />
+  return <PatientView patient={data} />
 }
 export default PatientLoader

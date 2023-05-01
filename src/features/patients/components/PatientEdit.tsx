@@ -10,7 +10,7 @@ function PatientEdit (): JSX.Element {
   const { filenum } = useParams()
   const openEdits = usePatientStore(state => state.openEdits)
   const [patient, setPatient] = useState<Patient>()
-  if (typeof filenum === 'undefined') return <PatientEditNewForm/>
+  if (typeof filenum === 'undefined' || filenum === '') return <PatientEditNewForm/>
   useEffect(() => {
     if (typeof filenum !== 'undefined') {
       const openedPatient = openEdits.filter(p => { return p.filenum === filenum })

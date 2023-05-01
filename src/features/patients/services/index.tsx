@@ -16,6 +16,7 @@ interface PatientHAL extends Patient {
 
 // FIXME: switch to axios
 async function updatePatient (p: Patient): Promise<Response> {
+  console.log(`updatin patient with body:  ${JSON.stringify(p)}`)
   return await fetch(globalConfig.config.apiUrl + '/patients/' + p.filenum, {
     method: 'POST',
     headers: {
@@ -40,7 +41,8 @@ async function getPatient (filenum: string): Promise<Patient> {
 
 // FIXME: switch to axios
 async function createPatient (p: Patient): Promise<Response> {
-  return await fetch(globalConfig.config.apiUrl + '/patients', {
+  console.log(`creating patient with body:  ${JSON.stringify(p)}`)
+  return await fetch(globalConfig.config.apiUrl + '/patients/', {
     method: 'POST',
     headers: {
       Accept: 'application/json',

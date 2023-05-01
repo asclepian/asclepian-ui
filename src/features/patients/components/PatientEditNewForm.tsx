@@ -1,37 +1,12 @@
 import { Patient } from '../entities'
-import { createPatient, getPatient, updatePatient } from '../services'
+import { createPatient } from '../services'
 import React, { useEffect, KeyboardEvent, useState } from 'react'
-import { parse, isDate } from 'date-fns'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
 import { useNavigate, useParams } from 'react-router-dom'
 import { checkboxInput, generalInput, optionInput, textInput } from '../../../tools/formTools'
-
-const PatientFormSchema = yup.object().shape({
-  filenum: yup.string().min(1).required(),
-  email: yup.string().email().nullable(),
-  cin: yup.string().min(5).required(),
-  lastname: yup.string().min(2).required(),
-  firstname: yup.string().min(2).required(),
-  gender: yup.string().required().matches(/(M|F)/),
-  birthdate: yup
-    .string()
-    .required()
-    .transform((value, originalValue) => {
-      return isDate(parse(originalValue, 'yyyy-MM-dd', new Date())) ? originalValue : null
-    }),
-  address: yup.string(),
-  city: yup.string(),
-  postalcode: yup.number(),
-  landline: yup.string(),
-  mobile: yup.string(),
-  active: yup.boolean(),
-  insured: yup.boolean(),
-  job: yup.string()
-  // ... more fields here
-})
+import PatientFormSchema from './patientFormSchema'
 
 function PatientEditNewForm (): JSX.Element {
   const { filenum } = useParams()
@@ -61,19 +36,18 @@ function PatientEditNewForm (): JSX.Element {
     const openedPatient = openEdits.filter(p => { return p.filenum === filenum })
     if (openedPatient.length !== 0) {
       setData(openedPatient[0])
-    } else {
-      getPatient(filenum).then((resp) => setData(resp)).catch((reason) => { console.error(reason) })
     }
-  } else {
-    return <div>patient undefined</div>
   }
-  if (typeof data === 'undefined') return <div>loading data for patient</div>
 
   const doHandleSubmit = async (data: Patient): Promise<void> => {
-    // console.log(`handliing submit witth data ${JSON.stringify(data)}`)
-    await updatePatient(data)
-      .then(() => form.reset(data))
-      .catch((err) => console.error(err))
+    console.log(`handling submit with data ${JSON.stringify(data)}`)
+    await createPatient(data)
+      .then(() => {
+        form.reset(data)
+        alert('Patient enregistré')
+        // navigate(`/patients/edit/${data.filenum}`)
+        console.log(`Patient created with data ${JSON.stringify(data)}`)
+      }).catch((err) => console.error(err))
   }
 
   return (
@@ -86,7 +60,7 @@ function PatientEditNewForm (): JSX.Element {
             onKeyDown={(k) => checkKeyDown(k)}
         >
             {generalInput(
-              { label: 'Numero de Dossier', id: 'filenum', readonly: true },
+              { label: 'Numero de Dossier', id: 'filenum' },
               register,
               errors?.filenum?.message
             )}

@@ -1,37 +1,12 @@
 import { Patient } from '../entities'
-import { createPatient, getPatient, updatePatient } from '../services'
+import { updatePatient } from '../services'
 import React, { useEffect, KeyboardEvent, useState } from 'react'
-import { parse, isDate } from 'date-fns'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { checkboxInput, generalInput, optionInput, textInput } from '../../../tools/formTools'
-
-const PatientFormSchema = yup.object().shape({
-  filenum: yup.string().min(1).required(),
-  email: yup.string().email().nullable(),
-  cin: yup.string().min(5).required(),
-  lastname: yup.string().min(2).required(),
-  firstname: yup.string().min(2).required(),
-  gender: yup.string().required().matches(/(M|F)/),
-  birthdate: yup
-    .string()
-    .required()
-    .transform((value, originalValue) => {
-      return isDate(parse(originalValue, 'yyyy-MM-dd', new Date())) ? originalValue : null
-    }),
-  address: yup.string(),
-  city: yup.string(),
-  postalcode: yup.number(),
-  landline: yup.string(),
-  mobile: yup.string(),
-  active: yup.boolean(),
-  insured: yup.boolean(),
-  job: yup.string()
-  // ... more fields here
-})
+import PatientFormSchema from './patientFormSchema'
 
 function PatientEditForm (props: { patient: Patient }): JSX.Element {
   // load opened version with unsaved changes
@@ -56,8 +31,10 @@ function PatientEditForm (props: { patient: Patient }): JSX.Element {
   const doHandleSubmit = async (data: Patient): Promise<void> => {
     // console.log(`handliing submit witth data ${JSON.stringify(data)}`)
     await updatePatient(data)
-      .then(() => form.reset(data))
-      .catch((err) => console.error(err))
+      .then(() => {
+        form.reset(data)
+        alert('Modification enregistrée')
+      }).catch((err) => console.error(err))
   }
 
   return (
@@ -172,4 +149,4 @@ function PatientEditForm (props: { patient: Patient }): JSX.Element {
   )
 }
 
-export { PatientEditForm, PatientFormSchema }
+export { PatientEditForm }

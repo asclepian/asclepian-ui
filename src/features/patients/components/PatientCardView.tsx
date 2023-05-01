@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Patient } from '../entities'
 import usePatientStore from '../PatientStore'
@@ -24,7 +24,7 @@ function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
                     {patient.insured ? 'A' : ''}
                 </span>
                 <h5 className="card-title">
-                    {patient.lastname + ' ' + patient.firstname}
+                    <Link className="card-link" to={'/patients/' + patient.filenum}>{patient.lastname + ' ' + patient.firstname}</Link>
                 </h5>
                 <h6
                     className={

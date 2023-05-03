@@ -1,6 +1,6 @@
 import { Patient } from '../entities'
 import { updatePatient } from '../services'
-import React, { useEffect, KeyboardEvent, useState } from 'react'
+import React, { useEffect, KeyboardEvent } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
@@ -31,9 +31,10 @@ function PatientEditForm (props: { patient: Patient }): JSX.Element {
   const doHandleSubmit = async (data: Patient): Promise<void> => {
     // console.log(`handliing submit witth data ${JSON.stringify(data)}`)
     await updatePatient(data)
-      .then(() => {
+      .then((response) => {
         form.reset(data)
-        alert('Modification enregistrée')
+        if (response.status !== 200) alert('Erreur: Modification NON enregistrée')
+        else alert('Modification enregistrée')
       }).catch((err) => console.error(err))
   }
 

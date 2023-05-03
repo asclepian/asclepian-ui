@@ -16,7 +16,7 @@ interface PatientHAL extends Patient {
 
 // FIXME: switch to axios
 async function updatePatient (p: Patient): Promise<Response> {
-  console.log(`updatin patient with body:  ${JSON.stringify(p)}`)
+  console.log(`updating patient with body:  ${JSON.stringify(p)}`)
   return await fetch(globalConfig.config.apiUrl + '/patients/' + p.filenum, {
     method: 'POST',
     headers: {
@@ -39,17 +39,27 @@ async function getPatient (filenum: string): Promise<Patient> {
   return data
 }
 
-// FIXME: switch to axios
+// FIXME: switch to axios <== AXIOS buggs in this
 async function createPatient (p: Patient): Promise<Response> {
-  console.log(`creating patient with body:  ${JSON.stringify(p)}`)
+  const data = normalizePatient(p)
+  const json = JSON.stringify(data)
+  console.log(`creating patient with body:  ${json}`)
   return await fetch(globalConfig.config.apiUrl + '/patients/', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(p)
+    body: json
   })
+}
+
+const normalizePatient = (p: Patient) => {
+  return {
+    ...p,
+    insured: p.insured ? 1 : 0,
+    active: p.active ? 1 : 0
+  }
 }
 
 export {

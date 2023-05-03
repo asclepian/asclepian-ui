@@ -42,11 +42,14 @@ function PatientEditNewForm (): JSX.Element {
   const doHandleSubmit = async (data: Patient): Promise<void> => {
     console.log(`handling submit with data ${JSON.stringify(data)}`)
     await createPatient(data)
-      .then(() => {
+      .then((response) => {
         form.reset(data)
-        alert('Patient enregistré')
-        // navigate(`/patients/edit/${data.filenum}`)
-        console.log(`Patient created with data ${JSON.stringify(data)}`)
+        if (response.status !== 200) alert('Erreur: Patient NON enregistré')
+        else {
+          alert('Patient enregistré')
+          // navigate(`/patients/edit/${data.filenum}`)
+          console.log(`Patient created with data ${JSON.stringify(data)}`)
+        }
       }).catch((err) => console.error(err))
   }
 

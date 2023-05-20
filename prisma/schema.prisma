@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model area {
+  id                            Int      @id @default(autoincrement())
+  area                          String?
+  timestamp                     DateTime?
+  createdby                     Int?
+  patient                       String?
+  patient_area_patientTopatient patient? @relation("area_patientTopatient", fields: [patient], references: [filenum], onDelete: NoAction)
+}
+
+model encounter {
+  id                                                   Int               @id @default(autoincrement())
+  timestamp                                            DateTime?
+  createdby                                            String?
+  patient                                              String
+  status                                               String?
+  end_timestamp                                        DateTime?
+  start_timestamp                                      DateTime?
+  patient_encounter_patientTopatient                   patient           @relation("encounter_patientTopatient", fields: [patient], references: [filenum], onDelete: NoAction)
+  encounter_codes_encounter_codes_encounterToencounter encounter_codes[] @relation("encounter_codes_encounterToencounter")
+}
+
+model encounter_codes {
+  id                                             Int        @id @default(autoincrement())
+  code                                           Int
+  comment                                        String?
+  is_roe                                         Boolean
+  encounter                                      Int
+  encounter_encounter_codes_encounterToencounter encounter? @relation("encounter_codes_encounterToencounter", fields: [encounter], references: [id], onDelete: Cascade)
+}
+
+model patient {
+  id                                   Int         @id @default(autoincrement())
+  cin                                  String?
+  filenum                              String      @unique(map: "sqlite_autoindex_patient_1")
+  firstname                            String
+  lastname                             String
+  active                               Boolean @default(true)
+  address                              String?
+  birthdate                            DateTime?
+  city                                 String?
+  createdon                            DateTime?
+  gender                               String?
+  insured                              Boolean @default(true)
+  job                                  String?
+  landline                             String?
+  mobile                               String?
+  postalcode                           Int?
+  createdby                            String?
+  email                                String?
+  area_area_patientTopatient           area[]      @relation("area_patientTopatient")
+  encounter_encounter_patientTopatient encounter[] @relation("encounter_patientTopatient")
+
+  @@index([firstname, lastname], map: "index_patients_lastname_firstname")
+}
+
+model payment {
+  id           Int     @id @default(autoincrement())
+  comment      String?
+  final_amount Float?
+  reduction    Float?
+  encounter    Int?    @unique(map: "sqlite_autoindex_payment_1")
+}

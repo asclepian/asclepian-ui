@@ -1,7 +1,6 @@
-
 import express from 'express'
 import * as trpcExpress from '@trpc/server/adapters/express'
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
 import { createContext } from './trpc'
 import { appRouter } from './routers/_app'
 
@@ -16,9 +15,9 @@ async function main () {
   /* const db = new Database('public/asclepian.db', { verbose: console.log })
   db.pragma('journal_mode = WAL') */
 
-  const prisma = new PrismaClient({
-    log: ['query', 'info', 'warn', 'error']
-  })
+  /*   const prisma = new PrismaClient({
+      log: ['query', 'info', 'warn', 'error']
+    }) */
 
   app.use((req, res, next) => {
     console.log('⬅️ ', req.method, req.path, req.body ?? req.query)

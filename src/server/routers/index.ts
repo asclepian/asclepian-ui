@@ -139,24 +139,24 @@ export const register = (app: Application, prisma: PrismaClient): void => {
 
       prisma.patient.create({
         data:
-      {
-        filenum: patient.filenum,
-        cin: patient.cin,
-        lastname: patient.lastname,
-        firstname: patient.firstname,
-        landline: patient.landline,
-        insured: patient.insured,
-        active: patient.active,
-        mobile: patient.mobile,
-        gender: patient.gender,
-        job: patient.job,
-        birthdate: patient.birthdate,
-        address: patient.address,
-        city: patient.city,
-        postalcode: patient.postalcode,
-        createdby: patient.createdby?.toString(),
-        createdon: patient.createdon
-      }
+        {
+          filenum: patient.filenum,
+          cin: patient.cin,
+          lastname: patient.lastname,
+          firstname: patient.firstname,
+          landline: patient.landline,
+          insured: patient.insured,
+          active: patient.active,
+          mobile: patient.mobile,
+          gender: patient.gender,
+          job: patient.job,
+          birthdate: patient.birthdate,
+          address: patient.address,
+          city: patient.city,
+          postalcode: patient.postalcode,
+          createdby: patient.createdby?.toString(),
+          createdon: patient.createdon
+        }
       }
       ).then(
         (result) => res.status(200).send({ message: result })
@@ -169,20 +169,20 @@ export const register = (app: Application, prisma: PrismaClient): void => {
       res.status(400).send({ message: error })
     }
   })
-/* 
-  app.get('/patients/:filenum/encounters', (req, res) => {
-    const startDate = typeof req.query.startDate === 'string' ? req.query.startDate : '0001-01-01'
-    const endDate = typeof req.query.endDate === 'string' ? req.query.endDate : '9999-12-31'
-    console.log(`get /patients/:filenum/encounters ${req.params.filenum} start: ${startDate} end: ${endDate}`)
-    asyncAll(stmtEncountersByPatient, { filenum: req.params.filenum, startDate, endDate }).then(encounters => {
-      typeof encounters === 'undefined'
-        ? res.status(404).send({ message: 'not found' })
-        : res.status(200).send({ _embedded: { encounterList: encounters } })
-    }).catch(error => {
-      console.error(error)
-      res.status(500).send({ message: error })
-    })
-  }) */
+  /*
+    app.get('/patients/:filenum/encounters', (req, res) => {
+      const startDate = typeof req.query.startDate === 'string' ? req.query.startDate : '0001-01-01'
+      const endDate = typeof req.query.endDate === 'string' ? req.query.endDate : '9999-12-31'
+      console.log(`get /patients/:filenum/encounters ${req.params.filenum} start: ${startDate} end: ${endDate}`)
+      asyncAll(stmtEncountersByPatient, { filenum: req.params.filenum, startDate, endDate }).then(encounters => {
+        typeof encounters === 'undefined'
+          ? res.status(404).send({ message: 'not found' })
+          : res.status(200).send({ _embedded: { encounterList: encounters } })
+      }).catch(error => {
+        console.error(error)
+        res.status(500).send({ message: error })
+      })
+    }) */
 
   /*  app.get('/encounters', (req, res) => {
     const startDate = typeof req.query.startDate === 'string' ? req.query.startDate : '0001-01-01'
@@ -210,16 +210,16 @@ export const register = (app: Application, prisma: PrismaClient): void => {
     })
   }) */
 
-/*   app.get('/views/patients/lastseen', (req, res) => {
-    const after = typeof req.query.after === 'string' ? req.query.after : '0001-01-01'
-    console.log(`get /views/patients/lastseen' ${after}`)
-    res.type('application/json')
-    asyncAll(stmtPatientLastSeen, after).then(data => {
-      typeof data === 'undefined' ? res.status(404).send({ message: 'not found' }) : res.status(200).send(data)
-    }).catch(error => {
-      console.error(error)
-      res.status(500).send({ message: error })
+  /*   app.get('/views/patients/lastseen', (req, res) => {
+      const after = typeof req.query.after === 'string' ? req.query.after : '0001-01-01'
+      console.log(`get /views/patients/lastseen' ${after}`)
+      res.type('application/json')
+      asyncAll(stmtPatientLastSeen, after).then(data => {
+        typeof data === 'undefined' ? res.status(404).send({ message: 'not found' }) : res.status(200).send(data)
+      }).catch(error => {
+        console.error(error)
+        res.status(500).send({ message: error })
+      })
     })
-  })
-*/
+  */
 }

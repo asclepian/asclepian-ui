@@ -32,11 +32,11 @@
   "scripts": {
     "dev:client": "vite",
     "dev:server": "tsx watch src/server",
+    "prisma:studio": "npx prisma studio",
     "dev:all": "npm-run-all -p dev:client dev:server",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "test": "vitest"
   },
   "browserslist": [
     ">0.2%",
@@ -66,6 +66,6 @@
     "vite": "^3.2.3",
     "vite-plugin-svgr": "^2.2.2",
     "vite-tsconfig-paths": "^3.5.2",
-    "vitest": "^0.25.3"
+    "vitest": "^0.31.1"
   }
 }

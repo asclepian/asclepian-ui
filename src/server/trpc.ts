@@ -1,6 +1,7 @@
 import { type inferAsyncReturnType, initTRPC } from '@trpc/server'
 import type * as trpcExpress from '@trpc/server/adapters/express'
 import { PrismaClient } from '@prisma/client'
+import superjson from 'superjson'
 export const createContext = (
   {
     req,
@@ -11,7 +12,7 @@ export const createContext = (
 }
 export type Context = inferAsyncReturnType<typeof createContext>
 
-const t = initTRPC.context<Context>().create()
+const t = initTRPC.context<Context>().create({ transformer: superjson })
 export const middleware = t.middleware
 export const router = t.router
 export const publicProcedure = t.procedure

@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { Patient } from './entities'
+import { Patient } from '../../entities'
 
 interface PatientState {
   openEdits: Patient[]

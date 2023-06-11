@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Patient } from '../entities'
+import { Patient } from '../../../entities'
 import usePatientStore from '../PatientStore'
 
 function PatientCardView (props: { patientJSON: Patient }): JSX.Element {

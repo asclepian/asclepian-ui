@@ -1,5 +1,4 @@
-import { Patient } from '../entities'
-import { createPatient } from '../services'
+import { Patient } from '../../../entities'
 import React, { useEffect, KeyboardEvent, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'

@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { router } from '../trpc'
 import { greetingRouter } from './greeting'
 import { patientRouter } from './patients'

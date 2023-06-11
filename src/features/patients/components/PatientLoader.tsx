@@ -1,8 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useQuery } from 'react-query'
-import { Patient } from '../entities'
-import { getPatient } from '../services'
+import { useQuery } from '@tanstack/react-query'
+import { Patient } from '../../../entities'
 import PatientView from './PatientView'
 
 /**
@@ -17,7 +16,7 @@ function PatientLoader (props: { filenum: string }): JSX.Element {
     // FIXME: handle erro fallback
     return <div>No Patient Specified</div>
   }
-  const { isLoading, error, data } = useQuery<Patient, Error>(`fetchPatient${filenum}`, async () => await getPatient(filenum))
+  const { isLoading, error, data } = useQuery<Patient, Error>([`fetchPatient${filenum}`], async () => await getPatient(filenum))
   if (isLoading) {
     // console.log('Loading...')
     return <div className="row p-1">Loading...</div>

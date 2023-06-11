@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react'
 import PatientCardView from './PatientCardView'
-import { useQuery } from 'react-query'
-import { Patient } from '../entities'
-import { getAllPatients, PatientListPaginatedHAL } from '../services'
+import { Patient } from '../../../entities'
 import usePatientStore from '../PatientStore'
+import { trpc } from '../../../utils/trpc'
 
 function PatientListView (): JSX.Element {
   console.log('PatientListView entered function, running useQuery hook')
-  const { isLoading, error, data } = useQuery<PatientListPaginatedHAL, Error>(
-    'allPatientsList',
-    getAllPatients
-  )
+  const { isLoading, error, data } = trpc.patients.listAll.useQuery()
   useEffect(() => usePatientStore.subscribe(console.log), [])
   console.log('PatientListView testing useQuery return value')
   if (isLoading) {
@@ -27,7 +23,7 @@ function PatientListView (): JSX.Element {
         <div className="flex flex-wrap gap-1 p-1">
             {
                 (typeof data !== 'undefined')
-                  ? data._embedded.patientList.map((p) => (
+                  ? data.patients.map((p) => (
                       <PatientCardView key={p.filenum} patientJSON={p as Patient} />
                   ))
                   : 'Empty'}

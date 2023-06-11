@@ -45,9 +45,9 @@ model patient {
   lastname                             String
   active                               Boolean @default(true)
   address                              String?
-  birthdate                            DateTime?
+  birthdate                            DateTime
   city                                 String?
-  createdon                            DateTime?
+  createdon                            DateTime @default(now()) 
   gender                               String?
   insured                              Boolean @default(true)
   job                                  String?

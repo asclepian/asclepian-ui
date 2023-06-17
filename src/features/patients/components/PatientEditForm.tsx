@@ -1,18 +1,30 @@
 import { Patient } from '../../../entities'
 import React, { useEffect, KeyboardEvent } from 'react'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
 import { useNavigate } from 'react-router-dom'
 import { checkboxInput, generalInput, optionInput, textInput } from '../../../tools/formTools'
-import PatientFormSchema from './patientFormSchema'
+import PatientSchema from './patientSchema'
+import { z } from 'zod'
+import { trpc } from '../../../utils/trpc'
+
+type PatientFormType = z.infer<typeof PatientSchema>
+
+function encodePatientDateToString (patient: Patient): PatientFormType {
+  return { ...patient, birthdate: patient.birthdate.toDateString() }
+}
+
+function decodePatientDateFromString (patient: PatientFormType): Patient {
+  return { ...patient, birthdate: new Date(patient.birthdate), id: 0, createdon: new Date(), createdby: null }
+}
 
 function PatientEditForm (props: { patient: Patient }): JSX.Element {
   // load opened version with unsaved changes
-  const form = useForm<Patient>({
+  const form = useForm<PatientFormType>({
     mode: 'onSubmit',
-    defaultValues: props.patient,
-    resolver: yupResolver(PatientFormSchema)
+    defaultValues: encodePatientDateToString(props.patient),
+    resolver: zodResolver(PatientSchema)
   })
   const { formState, register, handleSubmit } = form
   const { errors, isSubmitting } = formState
@@ -20,7 +32,7 @@ function PatientEditForm (props: { patient: Patient }): JSX.Element {
   const removePatient = usePatientStore((state) => state.removePatient)
   const patchPatient = usePatientStore((state) => state.patchPatient)
   useEffect(() => {
-    return () => patchPatient(form.getValues())
+    return () => patchPatient(decodePatientDateFromString(form.getValues()))
   }, [])
   const navigate = useNavigate()
   function checkKeyDown (e: KeyboardEvent): void {
@@ -29,7 +41,7 @@ function PatientEditForm (props: { patient: Patient }): JSX.Element {
 
   const doHandleSubmit = async (data: Patient): Promise<void> => {
     // console.log(`handliing submit witth data ${JSON.stringify(data)}`)
-    await updatePatient(data)
+    await trpc.patients.updatePatient(data)
       .then((response) => {
         form.reset(data)
         if (response.status !== 200) alert('Erreur: Modification NON enregistrée')

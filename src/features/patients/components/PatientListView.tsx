@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import PatientCardView from './PatientCardView'
-import { Patient } from '../../../entities'
 import usePatientStore from '../PatientStore'
 import { trpc } from '../../../utils/trpc'
 
@@ -24,7 +23,7 @@ function PatientListView (): JSX.Element {
             {
                 (typeof data !== 'undefined')
                   ? data.patients.map((p) => (
-                      <PatientCardView key={p.filenum} patientJSON={p as Patient} />
+                      <PatientCardView key={p.filenum} patientJSON={p} />
                   ))
                   : 'Empty'}
         </div>

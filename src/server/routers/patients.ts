@@ -1,3 +1,4 @@
+import PatientSchema from '../../features/patients/components/patientSchema'
 import { router, publicProcedure } from '../trpc'
 import { z } from 'zod'
 export const patientRouter = router({
@@ -12,5 +13,8 @@ export const patientRouter = router({
       }
     })
     return { patient: result }
+  }),
+  updatePatient: publicProcedure.input(PatientSchema).mutation(async (opts) => {
+    await opts.ctx.prisma.patient.update({})
   })
 })

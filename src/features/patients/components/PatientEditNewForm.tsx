@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
 import { useNavigate, useParams } from 'react-router-dom'
 import { checkboxInput, generalInput, optionInput, textInput } from '../../../tools/formTools'
-import PatientFormSchema from './patientFormSchema'
+import PatientFormSchema from './patientSchema'
 
 function PatientEditNewForm (): JSX.Element {
   const { filenum } = useParams()

@@ -1,11 +1,10 @@
 import { Patient } from '../../../entities'
 import React, { useEffect, KeyboardEvent, useState } from 'react'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
 import { useNavigate, useParams } from 'react-router-dom'
-import { checkboxInput, generalInput, optionInput, textInput } from '../../../tools/formTools'
-import PatientFormSchema from './patientSchema'
+import { checkboxInput, generalInput, optionInput, textInput, PatientSchema } from '../../../tools/formTools'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 function PatientEditNewForm (): JSX.Element {
   const { filenum } = useParams()
@@ -16,7 +15,7 @@ function PatientEditNewForm (): JSX.Element {
   const form = useForm<Patient>({
     mode: 'onSubmit',
     defaultValues: data,
-    resolver: yupResolver(PatientFormSchema)
+    resolver: zodResolver(PatientSchema)
   })
   const { formState, register, handleSubmit } = form
   const { errors, isSubmitting } = formState

@@ -34,7 +34,7 @@ function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
                           : 'bi-gender-female')
                     }
                 >
-                    {patient.birthdate + '#' + patient.id.toString()}
+                    {patient.birthdate.toISOString() + '#' + patient.id.toString()}
                 </h6>
                 <div className="card-text">
                     <ul>
@@ -43,7 +43,7 @@ function PatientCardView (props: { patientJSON: Patient }): JSX.Element {
                             {patient.landline}
                         </li>
                         <li className="address bi bi-house-door">
-                            {patient.address + ' ' + patient.city}
+                            {(patient.address ?? '') + ' ' + (patient.city ?? '')}
                         </li>
                     </ul>
                     <Link

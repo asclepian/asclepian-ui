@@ -1,5 +1,7 @@
 import React from 'react'
-
+import { z } from 'zod'
+import { Patient } from '../entities'
+import { format } from 'date-fns'
 interface InputParams {
   label: string
   id: string
@@ -147,5 +149,34 @@ const checkboxInput = (
         </div>
   )
 }
+const PatientSchema = z.object({
+  filenum: z.string().min(1),
+  email: z.string().email().nullable(),
+  cin: z.string().min(5).nullable(),
+  lastname: z.string().min(2),
+  firstname: z.string().min(2),
+  gender: z.string().regex(/(M|F)/).nullable(),
+  birthdate: z.string(),
+  address: z.string().nullable(),
+  city: z.string().nullable(),
+  postalcode: z.number().nullable(),
+  landline: z.string().nullable(),
+  mobile: z.string().nullable(),
+  active: z.boolean(),
+  insured: z.boolean(),
+  job: z.string().nullable(),
+  id: z.number().nullable()
+})
 
-export { generalInput, optionInput, textInput, checkboxInput }
+type PatientFormType = z.infer<typeof PatientSchema>
+
+function encodePatientToFormType (patient: Patient): PatientFormType {
+  console.log('encodePatientToFormType', JSON.stringify(patient.birthdate))
+  return { ...patient, birthdate: format(patient.birthdate, 'yyyy-MM-dd') }
+}
+
+function decodePatientFromFormType (patient: PatientFormType): Patient {
+  console.log('decodePatientFromFormType', JSON.stringify(patient.birthdate))
+  return { ...patient, birthdate: new Date(patient.birthdate), id: 0, createdon: new Date(), createdby: null }
+}
+export { generalInput, optionInput, textInput, checkboxInput, encodePatientToFormType, decodePatientFromFormType, type PatientFormType, PatientSchema }

@@ -10,16 +10,21 @@ import { trpc } from '../../../utils/trpc'
 
 function PatientEdit (): JSX.Element {
   const { filenum } = useParams()
+  console.log('PatientEdit', `editing filenum: ${filenum ?? ''}`)
+
   const openEdits = usePatientStore(state => state.openEdits)
   const [patient, setPatient] = useState<Patient>()
   if (typeof filenum === 'undefined' || filenum === '') return <PatientEditNewForm/>
   useEffect(() => {
     if (typeof filenum !== 'undefined') {
       const openedPatient = openEdits.filter(p => { return p.filenum === filenum })
+      console.log('PatientEdit', `found this in the store ${JSON.stringify(openedPatient)}`)
       if (openedPatient.length !== 0) {
+        console.log('PatientEdit', `loading from store ${JSON.stringify(openedPatient[0])} type of ${typeof openedPatient[0].birthdate}`)
         setPatient(openedPatient[0])
       } else {
         const p = trpc.patients.byFilenum.useQuery(filenum).data
+        console.log('PatientEdit', `loaded from api patient ${JSON.stringify(p)}`)
         if (p?.patient != null) setPatient(p.patient)
       }
     }

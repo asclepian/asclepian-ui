@@ -5,11 +5,12 @@ import EncounterView from './EncounterViewComponent'
 import Header from './HeaderComponent'
 import Home from './HomeComponent'
 import {
+  NewPatientEditForm,
   PatientListView,
   PatientLoader
 } from '../features/patients'
 import LookupView from './LookupViewComponent'
-import { PatientEdit } from '../features/patients/components/PatientEdit'
+import { PatientEdit, New } from '../features/patients/components/PatientEdit'
 
 const Main: FunctionComponent = () => (
     <div className="antialiased text-dark bg-light flex flex-row">
@@ -33,6 +34,10 @@ const Main: FunctionComponent = () => (
                             <Route
                                 path="new"
                                 element={<PatientEdit/>}
+                            />
+                            <Route
+                                path="newEdit"
+                                element={<NewPatientEditForm/>}
                             />
                             <Route
                                 path=":filenum"

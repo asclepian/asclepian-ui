@@ -8,6 +8,7 @@ interface InputParams {
   type?: string
   placeholder?: string
   readonly?: boolean
+  shape?:Map<string,string>
 }
 interface TextParams extends InputParams {
   rows: number
@@ -179,4 +180,5 @@ function decodePatientFromFormType (patient: PatientFormType): Patient {
   console.log('decodePatientFromFormType', JSON.stringify(patient.birthdate))
   return { ...patient, birthdate: new Date(patient.birthdate), id: 0, createdon: new Date(), createdby: null }
 }
-export { generalInput, optionInput, textInput, checkboxInput, encodePatientToFormType, decodePatientFromFormType, type PatientFormType, PatientSchema }
+export { generalInput, optionInput, textInput, checkboxInput, type InputParams, type TextParams, type OptionParams }
+export { encodePatientToFormType, decodePatientFromFormType, type PatientFormType, PatientSchema }

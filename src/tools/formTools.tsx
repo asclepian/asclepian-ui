@@ -3,26 +3,23 @@ import { z } from 'zod'
 import { Patient } from '../entities'
 import { format } from 'date-fns'
 interface InputParams {
-  label: string
-  id: string
-  type?: string
-  placeholder?: string
-  readonly?: boolean
-  shape?:Map<string,string>
-}
-interface TextParams extends InputParams {
-  rows: number
-}
-interface OptionParams extends InputParams {
-  options: Array<{ label: string, value: string }>
+    label: string
+    id: string
+    type?: string
+    placeholder?: string
+    readonly?: boolean
+    value?: string
+    shape?: Map<string, string>
+    rows?: number
+    options?: Array<{ label: string, value: string }>
 }
 
 const generalInput = (
-  params: InputParams,
-  register: any,
-  errors: string | undefined
+    params: InputParams,
+    register: any,
+    errors: string | undefined
 ): JSX.Element => {
-  return (
+    return (
         <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
             <label
                 htmlFor={params.id}
@@ -36,27 +33,27 @@ const generalInput = (
                 type={typeof params.type === 'undefined' ? 'text' : params.type}
                 placeholder={
                     typeof params.placeholder === 'undefined'
-                      ? params.label
-                      : params.placeholder
+                        ? params.label
+                        : params.placeholder
                 }
                 readOnly={
                     typeof params.readonly === 'undefined'
-                      ? false
-                      : params.readonly
+                        ? false
+                        : params.readonly
                 }
                 {...register(params.id)}
             />
             <div>{typeof errors === 'undefined' ? '' : errors}</div>
         </div>
-  )
+    )
 }
 
 const optionInput = (
-  params: OptionParams,
-  register: any,
-  errors: string | undefined
+    params: InputParams,
+    register: any,
+    errors: string | undefined
 ): JSX.Element => {
-  return (
+    return (
         <div className="flex mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
             <label
                 htmlFor={params.id}
@@ -70,7 +67,7 @@ const optionInput = (
                     id={params.id}
                     {...register(params.id)}
                 >
-                    {params.options.map((option) => (
+                    {params.options?.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}
                         </option>
@@ -79,15 +76,15 @@ const optionInput = (
             </div>
             <div>{typeof errors === 'undefined' ? '' : errors}</div>
         </div>
-  )
+    )
 }
 
 const textInput = (
-  params: TextParams,
-  register: any,
-  errors: string | undefined
+    params: InputParams,
+    register: any,
+    errors: string | undefined
 ): JSX.Element => {
-  return (
+    return (
         <div className="mb-5 row rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
             <label
                 htmlFor={params.id}
@@ -101,28 +98,28 @@ const textInput = (
                 type="text"
                 placeholder={
                     typeof params.placeholder === 'undefined'
-                      ? params.label
-                      : params.placeholder
+                        ? params.label
+                        : params.placeholder
                 }
                 rows={params.rows}
                 readOnly={
                     typeof params.readonly === 'undefined'
-                      ? false
-                      : params.readonly
+                        ? false
+                        : params.readonly
                 }
                 {...register(params.id)}
             ></textarea>
             <div>{typeof errors === 'undefined' ? '' : errors}</div>
         </div>
-  )
+    )
 }
 
 const checkboxInput = (
-  params: InputParams,
-  register: any,
-  errors: string | undefined
+    params: InputParams,
+    register: any,
+    errors: string | undefined
 ): JSX.Element => {
-  return (
+    return (
         <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
             <label
                 htmlFor={params.id}
@@ -136,49 +133,49 @@ const checkboxInput = (
                 type="checkbox"
                 placeholder={
                     typeof params.placeholder === 'undefined'
-                      ? params.label
-                      : params.placeholder
+                        ? params.label
+                        : params.placeholder
                 }
                 readOnly={
                     typeof params.readonly === 'undefined'
-                      ? false
-                      : params.readonly
+                        ? false
+                        : params.readonly
                 }
                 {...register(params.id)}
             />
             <div>{typeof errors === 'undefined' ? '' : errors}</div>
         </div>
-  )
+    )
 }
 const PatientSchema = z.object({
-  filenum: z.string().min(1),
-  email: z.string().email().nullable(),
-  cin: z.string().min(5).nullable(),
-  lastname: z.string().min(2),
-  firstname: z.string().min(2),
-  gender: z.string().regex(/(M|F)/).nullable(),
-  birthdate: z.string(),
-  address: z.string().nullable(),
-  city: z.string().nullable(),
-  postalcode: z.number().nullable(),
-  landline: z.string().nullable(),
-  mobile: z.string().nullable(),
-  active: z.boolean(),
-  insured: z.boolean(),
-  job: z.string().nullable(),
-  id: z.number().nullable()
+    filenum: z.string().min(1),
+    email: z.string().email().nullable(),
+    cin: z.string().min(5).nullable(),
+    lastname: z.string().min(2),
+    firstname: z.string().min(2),
+    gender: z.string().regex(/(M|F)/).nullable(),
+    birthdate: z.string(),
+    address: z.string().nullable(),
+    city: z.string().nullable(),
+    postalcode: z.number().nullable(),
+    landline: z.string().nullable(),
+    mobile: z.string().nullable(),
+    active: z.boolean(),
+    insured: z.boolean(),
+    job: z.string().nullable(),
+    id: z.number().nullable()
 })
 
 type PatientFormType = z.infer<typeof PatientSchema>
 
-function encodePatientToFormType (patient: Patient): PatientFormType {
-  console.log('encodePatientToFormType', JSON.stringify(patient.birthdate))
-  return { ...patient, birthdate: format(patient.birthdate, 'yyyy-MM-dd') }
+function encodePatientToFormType(patient: Patient): PatientFormType {
+    console.log('encodePatientToFormType', JSON.stringify(patient.birthdate))
+    return { ...patient, birthdate: format(patient.birthdate, 'yyyy-MM-dd') }
 }
 
-function decodePatientFromFormType (patient: PatientFormType): Patient {
-  console.log('decodePatientFromFormType', JSON.stringify(patient.birthdate))
-  return { ...patient, birthdate: new Date(patient.birthdate), id: 0, createdon: new Date(), createdby: null }
+function decodePatientFromFormType(patient: PatientFormType): Patient {
+    console.log('decodePatientFromFormType', JSON.stringify(patient.birthdate))
+    return { ...patient, birthdate: new Date(patient.birthdate), id: 0, createdon: new Date(), createdby: null }
 }
-export { generalInput, optionInput, textInput, checkboxInput, type InputParams, type TextParams, type OptionParams }
+export { generalInput, optionInput, textInput, checkboxInput, type InputParams }
 export { encodePatientToFormType, decodePatientFromFormType, type PatientFormType, PatientSchema }

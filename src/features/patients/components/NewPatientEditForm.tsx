@@ -1,5 +1,42 @@
 import React, { FormEvent } from 'react'
-import { InputParams, OptionParams, TextParams } from '../../../tools/formTools'
+import { InputParams} from '../../../tools/formTools'
+const patientData = {
+  "id": 999,
+  "filenum": "D999",
+  "cin": "M3928945",
+  "lastname": "Thornhill",
+  "firstname": "Leonanie",
+  "landline": "0",
+  "insured": true,
+  "active": true,
+  "mobile": "953-286-3891",
+  "gender": "M",
+  "job": null,
+  "birthdate": "1966-07-17",
+  "address": "540 Hagan Circle",
+  "city": null,
+  "postalcode": 70241,
+  "createdby": null,
+  "createdon": null,
+}
+const patient = Object.fromEntries(Object.entries(patientData))
+
+const formFieldsParams =[{label:'Numero de Dossier', id:'filenum', readonly:true},
+                         {label:'Nom de famille', id:'lastname' },
+                          {label:'Prénom' ,id:'firstname' },
+                         {label:'CIN', id:'cin' },
+                         {label:'Date de naissance', id:'birthdate', type:'date'},
+                         {label:'Sexe', id:'gender', type:'option', option:{['H','F']}},
+                         {label:'Marie', id:'active', type:'toggle'},
+                         {label:'Adresse', id:'address', type:'textarea', rows:{3}},
+                         {label:'Ville' ,id:'city' },
+                         {label:'Code Postal' ,id:'postal' ,type:'number'},
+                         {label:'Tél', id:'landline', type:'tel'},
+                         {label:'Email', id:'email', type:'email' },
+                         {label:'Mobile' ,id:'mobile',type:'tel'},
+                         {label:'Compte actif', id:'active', type:'toggle'},
+                         {label:'Mutualiste', id:'insured', type:'toggle'}, 
+                         {label:'Profession', id:'job'}]
 
 function NewPatientEditForm() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -16,26 +53,23 @@ function NewPatientEditForm() {
       }}
       onSubmit={handleSubmit}
     >
-      <InputFormComponent label='Numero de Dossier' id='filenum' readonly={true} shape={formshape}/>
-      <InputFormComponent label='Nom de famille' id='lastname' shape={formshape}/>
-      <InputFormComponent label='Prénom' id='firstname' shape={formshape}/>
-      <InputFormComponent label='CIN' id='cin' shape={formshape}/>
-      <InputFormComponent label='Date de naissance' id='birthdate' type='date' shape={formshape}/>
-      <OptionFormComponent label='Sexe' id='gender' shape={formshape} options={[
-        { label: 'Homme', value: 'M' },
-        { label: 'Femme', value: 'F' }
-      ]} />
-      <CheckboxFormComponent label='Marie' id='active' shape={formshape}/>
-      <TextInputFormComponent label='Adresse' id='address' rows={3} shape={formshape}/>
-      <InputFormComponent label='Ville' id='city' shape={formshape}/>
+      <InputFormComponent label='Numero de Dossier' id='filenum' readonly={true} shape={formshape} />
+      <InputFormComponent label='Nom de famille' id='lastname' shape={formshape} />
+      <InputFormComponent label='Prénom' id='firstname' shape={formshape} />
+      <InputFormComponent label='CIN' id='cin' shape={formshape} />
+      <InputFormComponent label='Date de naissance' id='birthdate' type='date' shape={formshape} />
+      <OptionFormComponent label='Sexe' id='gender' shape={formshape} options={['H','F']} />
+      <CheckboxFormComponent label='Marie' id='active' shape={formshape} />
+      <TextInputFormComponent label='Adresse' id='address' rows={3} shape={formshape} />
+      <InputFormComponent label='Ville' id='city' shape={formshape} />
       <InputFormComponent label='Code Postal' id='postal' type='number' shape={formshape} />
-      <InputFormComponent label='Tél' id='landline' shape={formshape}/>
-      <InputFormComponent label='Email' id='email' shape={formshape}/>
-      <InputFormComponent label='Téléphone' id='phone' shape={formshape}/>
-      <InputFormComponent label='Mobile' id='mobile' shape={formshape}/>
-      <CheckboxFormComponent label='Compte actif' id='active' shape={formshape}/>
-      <CheckboxFormComponent label='Mutualiste' id='insured' shape={formshape}/>
-      <InputFormComponent label='Profession' id='job' shape={formshape}/>
+      <InputFormComponent label='Tél' id='landline' shape={formshape} />
+      <InputFormComponent label='Email' id='email' shape={formshape} />
+      <InputFormComponent label='Téléphone' id='phone' shape={formshape} />
+      <InputFormComponent label='Mobile' id='mobile' shape={formshape} />
+      <CheckboxFormComponent label='Compte actif' id='active' shape={formshape} />
+      <CheckboxFormComponent label='Mutualiste' id='insured' shape={formshape} />
+      <InputFormComponent label='Profession' id='job' shape={formshape} />
       <div className="flex justify-evenly">
         <button
           className="bg-secondary text-white"
@@ -52,9 +86,9 @@ function NewPatientEditForm() {
       </div>
     </form>)
 }
-function InputFormComponent(props: InputParams ) {
+function InputFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)
-  
+
   return (
     <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
       <label
@@ -73,6 +107,7 @@ function InputFormComponent(props: InputParams ) {
             ? props.label
             : props.placeholder
         }
+        value={props.value}
         readOnly={
           typeof props.readonly === 'undefined'
             ? false
@@ -83,9 +118,9 @@ function InputFormComponent(props: InputParams ) {
     </div>
   )
 }
-function TextInputFormComponent(props: TextParams) {
+function TextInputFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)
-  
+
   return (
     <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
       <label
@@ -104,6 +139,7 @@ function TextInputFormComponent(props: TextParams) {
             ? props.label
             : props.placeholder
         }
+        value={props.value}
         readOnly={
           typeof props.readonly === 'undefined'
             ? false
@@ -115,9 +151,9 @@ function TextInputFormComponent(props: TextParams) {
   )
 }
 
-function OptionFormComponent(props: OptionParams) {
+function OptionFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)
-  
+
   return (
     <div className="flex mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
       <label
@@ -131,8 +167,9 @@ function OptionFormComponent(props: OptionParams) {
           name={props.id}
           className="form-select"
           id={props.id}
+          value={props.value}
         >
-          {props.options.map((option) => (
+          {props.options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -144,8 +181,8 @@ function OptionFormComponent(props: OptionParams) {
 }
 
 function CheckboxFormComponent(props: InputParams) {
-  props.shape?.set(props.id,'checkbox')
-  
+  props.shape?.set(props.id, 'checkbox')
+
   return (
     <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
       <label
@@ -164,6 +201,7 @@ function CheckboxFormComponent(props: InputParams) {
             ? props.label
             : props.placeholder
         }
+        value={props.value}
         readOnly={
           typeof props.readonly === 'undefined'
             ? false

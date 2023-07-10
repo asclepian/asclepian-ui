@@ -1,5 +1,5 @@
-import React, { FormEvent } from 'react'
-import { InputParams} from '../../../tools/formTools'
+import { FormEvent } from 'react'
+import { InputParams } from '../../../tools/formTools'
 const patientData = {
   "id": 999,
   "filenum": "D999",
@@ -21,22 +21,22 @@ const patientData = {
 }
 const patient = Object.fromEntries(Object.entries(patientData))
 
-const formFieldsParams =[{label:'Numero de Dossier', id:'filenum', readonly:true},
-                         {label:'Nom de famille', id:'lastname' },
-                          {label:'Prénom' ,id:'firstname' },
-                         {label:'CIN', id:'cin' },
-                         {label:'Date de naissance', id:'birthdate', type:'date'},
-                         {label:'Sexe', id:'gender', type:'option', option:{['H','F']}},
-                         {label:'Marie', id:'active', type:'toggle'},
-                         {label:'Adresse', id:'address', type:'textarea', rows:{3}},
-                         {label:'Ville' ,id:'city' },
-                         {label:'Code Postal' ,id:'postal' ,type:'number'},
-                         {label:'Tél', id:'landline', type:'tel'},
-                         {label:'Email', id:'email', type:'email' },
-                         {label:'Mobile' ,id:'mobile',type:'tel'},
-                         {label:'Compte actif', id:'active', type:'toggle'},
-                         {label:'Mutualiste', id:'insured', type:'toggle'}, 
-                         {label:'Profession', id:'job'}]
+const formFieldsParams = [{ label: 'Numero de Dossier', id: 'filenum', readonly: true },
+{ label: 'Nom de famille', id: 'lastname' },
+{ label: 'Prénom', id: 'firstname' },
+{ label: 'CIN', id: 'cin' },
+{ label: 'Date de naissance', id: 'birthdate', type: 'date' },
+{ label: 'Sexe', id: 'gender', type: 'option', option: ['H', 'F'] },
+{ label: 'Marie', id: 'active', type: 'toggle' },
+{ label: 'Adresse', id: 'address', type: 'textarea', rows: 3 },
+{ label: 'Ville', id: 'city' },
+{ label: 'Code Postal', id: 'postal', type: 'number' },
+{ label: 'Tél', id: 'landline', type: 'tel' },
+{ label: 'Email', id: 'email', type: 'email' },
+{ label: 'Mobile', id: 'mobile', type: 'tel' },
+{ label: 'Compte actif', id: 'active', type: 'toggle' },
+{ label: 'Mutualiste', id: 'insured', type: 'toggle' },
+{ label: 'Profession', id: 'job' }]
 
 function NewPatientEditForm() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -58,7 +58,7 @@ function NewPatientEditForm() {
       <InputFormComponent label='Prénom' id='firstname' shape={formshape} />
       <InputFormComponent label='CIN' id='cin' shape={formshape} />
       <InputFormComponent label='Date de naissance' id='birthdate' type='date' shape={formshape} />
-      <OptionFormComponent label='Sexe' id='gender' shape={formshape} options={['H','F']} />
+      <OptionFormComponent label='Sexe' id='gender' shape={formshape} options={[{ label: 'homme', value: 'H' }, { label: 'femme', value: 'F' }]} />
       <CheckboxFormComponent label='Marie' id='active' shape={formshape} />
       <TextInputFormComponent label='Adresse' id='address' rows={3} shape={formshape} />
       <InputFormComponent label='Ville' id='city' shape={formshape} />
@@ -88,35 +88,37 @@ function NewPatientEditForm() {
 }
 function InputFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)
+  const inputType: string = props.type === 'undefined' ? 'text' : props.type
 
-  return (
-    <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
-      <label
-        htmlFor={props.id}
-        className="text-xs text-dark placeholder-gray-gray4 px-2 pt-1.5"
-      >
-        {props.label}
-      </label>
-      <input
-        id={props.id}
-        name={props.id}
-        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
-        type={typeof props.type === 'undefined' ? 'text' : props.type}
-        placeholder={
-          typeof props.placeholder === 'undefined'
-            ? props.label
-            : props.placeholder
-        }
-        value={props.value}
-        readOnly={
-          typeof props.readonly === 'undefined'
-            ? false
-            : props.readonly
-        }
-      />
-      <div></div>
-    </div>
-  )
+  const inputJSX: JSX.Element = <input
+    id={props.id}
+    name={props.id}
+    className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
+    type={typeof props.type === 'undefined' ? 'text' : props.type}
+    placeholder={
+      typeof props.placeholder === 'undefined'
+        ? props.label
+        : props.placeholder
+    }
+    value={props.value}
+    readOnly={
+      typeof props.readonly === 'undefined'
+        ? false
+        : props.readonly
+    }/>
+
+    return (
+      <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
+        <label
+          htmlFor={props.id}
+          className="text-xs text-dark placeholder-gray-gray4 px-2 pt-1.5"
+        >
+          {props.label}
+        </label>
+        {inputJSX}
+        <div></div>
+      </div>
+    )
 }
 function TextInputFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)

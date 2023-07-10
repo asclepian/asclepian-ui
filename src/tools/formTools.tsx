@@ -1,17 +1,28 @@
-import React from 'react'
 import { z } from 'zod'
 import { Patient } from '../entities'
 import { format } from 'date-fns'
-interface InputParams {
+type InputParams = {
     label: string
     id: string
-    type?: string
-    placeholder?: string
-    readonly?: boolean
-    value?: string
-    shape?: Map<string, string>
+    placeholder ?: string
+    readonly ?: boolean
+    value ?: string
+    shape ?: Map<string, string>
+} & (TextAreaParams | OptionParams | ToggleParams |{type:'date'|'email'|'number'|'password'|'tel'})
+
+type TextAreaParams = {
+    type: 'textarea'
     rows?: number
-    options?: Array<{ label: string, value: string }>
+}
+
+type OptionParams = {
+    type: 'checkbox'
+    options ?: Array<{ label: string, value: string }>
+}
+
+type ToggleParams = {
+    type: 'toggle'
+
 }
 
 const generalInput = (

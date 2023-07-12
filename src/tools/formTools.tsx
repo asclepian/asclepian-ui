@@ -8,7 +8,7 @@ type InputParams = {
     readonly ?: boolean
     value ?: string
     shape ?: Map<string, string>
-} & (TextAreaParams | OptionParams | ToggleParams |{type:'date'|'email'|'number'|'password'|'tel'})
+} & (TextAreaParams | OptionParams | CheckboxParams |{type?:'date'|'email'|'number'|'password'|'tel'|'text'})
 
 type TextAreaParams = {
     type: 'textarea'
@@ -16,12 +16,12 @@ type TextAreaParams = {
 }
 
 type OptionParams = {
-    type: 'checkbox'
+    type: 'option'
     options ?: Array<{ label: string, value: string }>
 }
 
-type ToggleParams = {
-    type: 'toggle'
+type CheckboxParams = {
+    type: 'checkbox'
 
 }
 

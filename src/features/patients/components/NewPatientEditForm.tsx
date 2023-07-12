@@ -26,16 +26,16 @@ const formFieldsParams = [{ label: 'Numero de Dossier', id: 'filenum', readonly:
 { label: 'Prénom', id: 'firstname' },
 { label: 'CIN', id: 'cin' },
 { label: 'Date de naissance', id: 'birthdate', type: 'date' },
-{ label: 'Sexe', id: 'gender', type: 'option', option: ['H', 'F'] },
-{ label: 'Marie', id: 'active', type: 'toggle' },
+{ label: 'Sexe', id: 'gender', type: 'option', option: [{ label: 'Homme', value: 'M' }, { label: 'Femme', value: 'F' }] },
+{ label: 'Marie', id: 'active', type: 'checkbox' },
 { label: 'Adresse', id: 'address', type: 'textarea', rows: 3 },
 { label: 'Ville', id: 'city' },
 { label: 'Code Postal', id: 'postal', type: 'number' },
 { label: 'Tél', id: 'landline', type: 'tel' },
 { label: 'Email', id: 'email', type: 'email' },
 { label: 'Mobile', id: 'mobile', type: 'tel' },
-{ label: 'Compte actif', id: 'active', type: 'toggle' },
-{ label: 'Mutualiste', id: 'insured', type: 'toggle' },
+{ label: 'Compte actif', id: 'active', type: 'checkbox' },
+{ label: 'Mutualiste', id: 'insured', type: 'checkbox' },
 { label: 'Profession', id: 'job' }]
 
 function NewPatientEditForm() {
@@ -53,7 +53,7 @@ function NewPatientEditForm() {
       }}
       onSubmit={handleSubmit}
     >
-      <InputFormComponent label='Numero de Dossier' id='filenum' readonly={true} shape={formshape} />
+      /*<InputFormComponent label='Numero de Dossier' id='filenum' readonly={true} shape={formshape} />
       <InputFormComponent label='Nom de famille' id='lastname' shape={formshape} />
       <InputFormComponent label='Prénom' id='firstname' shape={formshape} />
       <InputFormComponent label='CIN' id='cin' shape={formshape} />
@@ -69,10 +69,13 @@ function NewPatientEditForm() {
       <InputFormComponent label='Mobile' id='mobile' shape={formshape} />
       <CheckboxFormComponent label='Compte actif' id='active' shape={formshape} />
       <CheckboxFormComponent label='Mutualiste' id='insured' shape={formshape} />
-      <InputFormComponent label='Profession' id='job' shape={formshape} />
+      <InputFormComponent label='Profession' id='job' shape={formshape} />*/
+      {
+        formFieldsParams.forEach( ff => <InputFormComponent props={...ff, shape:formshape})/>
+      }
       <div className="flex justify-evenly">
         <button
-          className="bg-secondary text-white"
+          className="bg-secondary text-whit/>"
           type="submit"
         >
           Enregistrer
@@ -88,37 +91,94 @@ function NewPatientEditForm() {
 }
 function InputFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)
-  const inputType: string = props.type === 'undefined' ? 'text' : props.type
-
-  const inputJSX: JSX.Element = <input
-    id={props.id}
-    name={props.id}
-    className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
-    type={typeof props.type === 'undefined' ? 'text' : props.type}
-    placeholder={
-      typeof props.placeholder === 'undefined'
-        ? props.label
-        : props.placeholder
-    }
-    value={props.value}
-    readOnly={
-      typeof props.readonly === 'undefined'
-        ? false
-        : props.readonly
-    }/>
-
-    return (
-      <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
-        <label
-          htmlFor={props.id}
-          className="text-xs text-dark placeholder-gray-gray4 px-2 pt-1.5"
+  let inputJSX: JSX.Element
+  switch (props.type) {
+    case 'option':
+    inputJSX =  <div className="col-sm-9 py-1 d-flex align-items-center">
+        <select
+          name={props.id}
+          className="form-select"
+          id={props.id}
+          value={props.value}
         >
-          {props.label}
-        </label>
-        {inputJSX}
-        <div></div>
+          {props.options?.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
-    )
+    break;
+    case 'checkbox':
+      inputJSX = <input
+        name={props.id}
+        id={props.id}
+        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
+        type="checkbox"
+        placeholder={
+          typeof props.placeholder === 'undefined'
+            ? props.label
+            : props.placeholder
+        }
+        value={props.value}
+        readOnly={
+          typeof props.readonly === 'undefined'
+            ? false
+            : props.readonly
+        }
+      />
+    break;
+    case 'textarea':
+      inputJSX = <textarea
+        name={props.id}
+        id={props.id}
+        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
+        rows={props.rows}
+        placeholder={
+          typeof props.placeholder === 'undefined'
+            ? props.label
+            : props.placeholder
+        }
+        value={props.value}
+        readOnly={
+          typeof props.readonly === 'undefined'
+            ? false
+            : props.readonly
+        }
+      ></textarea>
+      break;
+    default:
+      inputJSX = <input
+        id={props.id}
+        name={props.id}
+        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
+        type={typeof props.type === 'undefined' ? 'text' : props.type}
+        placeholder={
+          typeof props.placeholder === 'undefined'
+            ? props.label
+            : props.placeholder
+        }
+        value={props.value}
+        readOnly={
+          typeof props.readonly === 'undefined'
+            ? false
+            : props.readonly
+        } />
+
+
+  }
+  return (
+    <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
+      <label
+        htmlFor={props.id}
+        className="text-xs text-dark placeholder-gray-gray4 px-2 pt-1.5"
+      >
+        {props.label}
+      </label>
+      {inputJSX}
+      <div></div>
+    </div>
+  )
 }
 function TextInputFormComponent(props: InputParams) {
   props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)

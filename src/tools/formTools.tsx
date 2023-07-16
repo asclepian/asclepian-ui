@@ -165,7 +165,7 @@ const PatientSchema = z.object({
     lastname: z.string().min(2),
     firstname: z.string().min(2),
     gender: z.string().regex(/(M|F)/).nullable(),
-    birthdate: z.string(),
+    birthdate: z.string().datetime(),
     address: z.string().nullable(),
     city: z.string().nullable(),
     postalcode: z.number().nullable(),
@@ -174,7 +174,9 @@ const PatientSchema = z.object({
     active: z.boolean(),
     insured: z.boolean(),
     job: z.string().nullable(),
-    id: z.number().nullable()
+    id: z.number().nullable(),
+    createdby: z.string().nullable(),
+    createdon: z.string().datetime().nullable()
 })
 
 type PatientFormType = z.infer<typeof PatientSchema>

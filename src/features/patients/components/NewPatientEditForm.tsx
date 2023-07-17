@@ -1,11 +1,8 @@
 import { FormEvent } from 'react'
 import z from 'zod'
-import { InputParams } from '../../../tools/formTools'
-import { PatientSchema } from '../../../tools/formTools'
-import { stringify } from 'querystring'
+import { InputParams, InputFormComponent, PatientFormType } from '../../../tools/formTools'
 
-type PatientInferedType = z.infer<typeof PatientSchema>
-const patientData: PatientInferedType = {
+const patientData: PatientFormType = {
   id: 999,
   filenum: "D999",
   cin: "M3928945",
@@ -43,7 +40,7 @@ const formFieldsParams: InputParams[] = [{ label: 'Numero de Dossier', id: 'file
 { label: 'Mutualiste', id: 'insured', type: 'checkbox' },
 { label: 'Profession', id: 'job' }]
 
-function NewPatientEditForm(defaultValue: PatientInferedType | null) {
+function NewPatientEditForm(defaultValue: PatientFormType | null) {
   defaultValue = patientData
   console.log('InputFormComponent',JSON.stringify(defaultValue))
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -82,101 +79,6 @@ function NewPatientEditForm(defaultValue: PatientInferedType | null) {
         </button>
       </div>
     </form>)
-}
-function InputFormComponent(props: InputParams) {
-  props.shape?.set(props.id, typeof props.type === 'undefined' ? 'text' : props.type)
-  let inputJSX: JSX.Element
-  switch (props.type) {
-    case 'option':
-      console.log('InputFormComponent#option', JSON.stringify(props))
-      inputJSX = <div className="col-sm-9 py-1 d-flex align-items-center">
-        <select
-          name={props.id}
-          className="form-select"
-          id={props.id}
-          defaultValue={props.value}
-        >
-          {props.options?.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
-      break;
-    case 'checkbox':
-      console.log('InputFormComponent#checkbox', JSON.stringify(props))
-      inputJSX = <input
-        name={props.id}
-        id={props.id}
-        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
-        type="checkbox"
-        placeholder={
-          typeof props.placeholder === 'undefined'
-            ? props.label
-            : props.placeholder
-        }
-        defaultValue={props.value}
-        readOnly={
-          typeof props.readonly === 'undefined'
-            ? false
-            : props.readonly
-        }
-      />
-      break;
-    case 'textarea':
-      console.log('InputFormComponent#textarea', JSON.stringify(props))
-      inputJSX = <textarea
-        name={props.id}
-        id={props.id}
-        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
-        rows={props.rows}
-        placeholder={
-          typeof props.placeholder === 'undefined'
-            ? props.label
-            : props.placeholder
-        }
-        defaultValue={props.value}
-        readOnly={
-          typeof props.readonly === 'undefined'
-            ? false
-            : props.readonly
-        }
-      ></textarea>
-      break;
-    default:
-      console.log('InputFormComponent#default', JSON.stringify(props))
-      inputJSX = <input
-        id={props.id}
-        name={props.id}
-        className="w-full px-2 pb-1.5 text-dark outline-none text-base rounded-md bg-white"
-        type={typeof props.type === 'undefined' ? 'text' : props.type}
-        placeholder={
-          typeof props.placeholder === 'undefined'
-            ? props.label
-            : props.placeholder
-        }
-        defaultValue={props.value}
-        readOnly={
-          typeof props.readonly === 'undefined'
-            ? false
-            : props.readonly
-        } />
-
-
-  }
-  return (
-    <div className="mb-5 rounded-lg focus-within:border-secondary border-gray-gray4 bg-white shadow-md">
-      <label
-        htmlFor={props.id}
-        className="text-xs text-dark placeholder-gray-gray4 px-2 pt-1.5"
-      >
-        {props.label}
-      </label>
-      {inputJSX}
-      <div></div>
-    </div>
-  )
 }
 
 export default NewPatientEditForm

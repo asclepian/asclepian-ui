@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import usePatientStore from '../PatientStore'
 import { useNavigate } from 'react-router-dom'
-import { checkboxInput, generalInput, optionInput, textInput, PatientFormType, encodePatientToFormType, decodePatientFromFormType, PatientSchema } from '../../../tools/formTools'
+import { checkboxInput, generalInput, optionInput, textInput, PatientFormType, PatientSchema } from '../../../tools/formTools'
 import { trpc } from '../../../utils/trpc'
 
 function PatientEditForm (props: { patient: Patient }): JSX.Element {

@@ -1,6 +1,7 @@
 import { FormEvent } from 'react'
 import z from 'zod'
 import { InputParams, InputFormComponent, PatientFormType } from '../../../tools/formTools'
+import { type } from 'os'
 
 const patientData: PatientFormType = {
   id: 999,
@@ -42,7 +43,7 @@ const formFieldsParams: InputParams[] = [{ label: 'Numero de Dossier', id: 'file
 
 function NewPatientEditForm(defaultValue: PatientFormType | null) {
   defaultValue = patientData
-  console.log('InputFormComponent',JSON.stringify(defaultValue))
+  console.log('InputFormComponent', JSON.stringify(defaultValue))
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.target as HTMLFormElement)
@@ -58,11 +59,14 @@ function NewPatientEditForm(defaultValue: PatientFormType | null) {
       onSubmit={handleSubmit}
     >
       {
-        formFieldsParams.map(ff => <InputFormComponent
-          key={'inputField#' + ff.id}
-          shape={formshape}
-          value={typeof defaultValue == 'undefined' || defaultValue == null ? '' : (defaultValue[ff.id as keyof PatientInferedType])}
-          {...ff} />)
+        formFieldsParams.map(ff => {
+          const value = defaultValue === null ? '' : defaultValue[ff.id as keyof PatientFormType]
+          return <InputFormComponent
+            key={'inputField#' + ff.id}
+            shape={formshape}
+            value={value?.toString()}
+              { ...ff } 
+              />})
       }
       <div className="flex justify-evenly">
         <button

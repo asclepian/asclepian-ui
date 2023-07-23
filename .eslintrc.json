@@ -6,7 +6,8 @@
     "extends": [
         "standard-with-typescript",
         "plugin:react/recommended",
-        "prettier"
+        "prettier",
+        "react-hooks"
     ],
     "overrides": [
         {
@@ -28,5 +29,8 @@
     "plugins": [
         "react"
     ],
-    "rules": {}
+    "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn" 
+    }
 }

@@ -31,8 +31,8 @@ const PatientSchema = z.object({
   cin: z.string().min(5).nullable(),
   lastname: z.string().min(2),
   firstname: z.string().min(2),
-  gender: z.string().regex(/(M|F)/).nullable(),
-  birthdate: z.string().datetime(),
+  gender: z.string().regex(/(M|F)/),
+  birthdate: z.string(),
   address: z.string().nullable(),
   city: z.string().nullable(),
   postalcode: z.number().nullable(),
@@ -43,7 +43,7 @@ const PatientSchema = z.object({
   job: z.string().nullable(),
   id: z.number().nullable(),
   createdby: z.string().nullable(),
-  createdon: z.string().datetime().nullable()
+  createdon: z.coerce.date().nullable()
 })
 
 type PatientFormType = z.infer<typeof PatientSchema>

@@ -1,7 +1,6 @@
 import { FormEvent } from 'react'
 import z from 'zod'
-import { InputParams, InputFormComponent, PatientFormType } from '../../../tools/formTools'
-import { type } from 'os'
+import { InputParams, InputFormComponent, PatientFormType, PatientSchema } from '../../../tools/formTools'
 
 const patientData: PatientFormType = {
   id: 999,
@@ -47,10 +46,12 @@ function NewPatientEditForm(defaultValue: PatientFormType | null) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.target as HTMLFormElement)
-    console.log('handleSubmit#formData', Object.fromEntries(data))
-    console.log('handleSubmit#formShape', Object.fromEntries(formshape))
+    const patientFormData =  Object.fromEntries(data)
+    console.log('handleSubmit#formData', patientFormData)
+    console.log('handleSubmit#formShape', Object.fromEntries(formshape))  
+    console.log('handleSubmit#zodParse', PatientSchema.safeParse(patientFormData))
   }
-  const formshape = new Map<string, string>()
+ const formshape = new Map<string, string>()
   return (
     <form className="p-2 bg-dominant"
       onKeyDown={k => {
